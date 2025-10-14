@@ -109,12 +109,17 @@
 		"addSpot": "독서 공간을 추가해보세요"
 	},
 	"search": {
-		"placeholder": "공간/도시 검색..."
+		"placeholder": "공간/도시 검색...",
+		"noResults": "검색 결과가 없습니다",
+		"clearSearch": "검색 지우기",
+		"loadMore": "더 보기",
+		"loadingMore": "로딩 중...",
+		"remaining": "개 남음"
 	},
 	"table": {
 		"header": {
 			"name": "장소명",
-			"city": "지역",
+			"city": "도시",
 			"category": "카테고리",
 			"quietness": "조용함",
 			"facility": "편의시설"
@@ -134,7 +139,7 @@
 	"about": {
 		"title": "책마루 소개",
 		"metaDescription": "책마루의 목적과 기능을 소개합니다.",
-		"description": "Mitul Shah님의 <a href=\"https://www.placestoread.xyz/\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Places to Read</a> 웹사이트에서 영감을 얻은 후, 한국을 위한 비슷한 웹사이트를 만들어보고 싶어 프로젝트를 시작했습니다. 독서는 항상 제 삶의 큰 부분을 차지해왔고, 제가 좋아하는 독서 장소를 다른 사람들과 공유할 방법을 원했습니다. 오류가 있다면 알려주세요. 여러분이 좋아하는 독서 장소를 다른 사람들과 자유롭게 공유해 주시면 감사하겠습니다!",
-		"footerNote": "커뮤니티와 함께 만드는 서비스입니다."
+		"description": "Mitul Shah님의 <a href=\"https://www.placestoread.xyz/\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Places to Read</a> 웹사이트에서 영감을 얻은 후, 한국을 위한 비슷한 웹사이트를 만들어보고 싶어 프로젝트를 시작했습니다. 독서는 항상 제 삶의 큰 부분을 차지해왔고, 제가 좋아하는 독서 장소를 다른 사람들과 공유할 방법을 원했습니다. 오류가 있다면 언제든지 알려주세요. 여러분이 좋아하는 독서 장소를 다른 사람들과 자유롭게 공유해 주시면 감사하겠습니다!",
+		"footerNote": "깃허브 저장소: <a href=\"https://github.com/daniel2231/bookmaru\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Github</a> <br> Built with SvelteKit and Supabase"
 	}
 }

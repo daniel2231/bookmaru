@@ -17,7 +17,7 @@ export function placeRowToUiPlace(row: PlaceRow, currentLocale: string): UiPlace
 		? (row.description_ko ?? row.description_en)
 		: (row.description_en ?? row.description_ko);
 
-	const address = isKo ? (row.address_ko ?? row.address_en) : (row.address_en ?? row.address_ko);
+	const region = isKo ? (row.region_ko ?? row.region_en) : (row.region_en ?? row.region_ko);
 
 	// Parse recommended book from JSONB (now single object instead of array)
 	const recommendedBookJson = isKo
@@ -43,8 +43,7 @@ export function placeRowToUiPlace(row: PlaceRow, currentLocale: string): UiPlace
 		id: row.id.toString(),
 		name,
 		description: description ?? null,
-		address: address ?? null,
-		region: row.region,
+		region: region ?? null,
 		category: row.category,
 		quietness: row.quietness,
 		amenities: row.amenities,

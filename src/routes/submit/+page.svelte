@@ -97,7 +97,8 @@
 				name_ko: isKo ? formData.name || null : null,
 				description_en: isKo ? null : formData.description || null,
 				description_ko: isKo ? formData.description || null : null,
-				region: formData.region || null,
+				region_en: isKo ? null : formData.region || null,
+				region_ko: isKo ? formData.region || null : null,
 				category: formData.category || null,
 				quietness,
 				amenities,
@@ -291,7 +292,8 @@
 					placeholder={$_('form.fields.regionPlaceholder')}
 					class="w-full rounded-none border border-gray-300 px-2.5 py-2.5 text-sm transition-colors focus:border-brand-primary focus:outline-none"
 				/>
-				<small class="block text-sm text-brand-secondary">{$_('form.fields.regionHint')}</small>
+				<small class="mt-1 block text-sm text-brand-secondary">{$_('form.fields.regionHint')}</small
+				>
 			</div>
 
 			<div class="mb-5">
@@ -301,7 +303,7 @@
 				<div class="flex flex-col gap-1.5">
 					<div class="mt-0 grid grid-cols-4 gap-3" role="radiogroup" aria-labelledby="category">
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -313,7 +315,7 @@
 							<span>{$_('categories.studycafe')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -325,7 +327,7 @@
 							<span>{$_('categories.cafe')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -337,7 +339,7 @@
 							<span>{$_('categories.library')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -349,7 +351,7 @@
 							<span>{$_('categories.public_space')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -361,7 +363,7 @@
 							<span>{$_('categories.university')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -373,7 +375,7 @@
 							<span>{$_('categories.community_center')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"
@@ -385,7 +387,7 @@
 							<span>{$_('categories.coworking')}</span>
 						</label>
 						<label
-							class="flex cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
 						>
 							<input
 								type="radio"

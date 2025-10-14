@@ -31,8 +31,6 @@ export type Database = {
 			};
 			places: {
 				Row: {
-					address_en: string | null;
-					address_ko: string | null;
 					amenities: string[] | null;
 					category: string | null;
 					created_at: string | null;
@@ -49,15 +47,14 @@ export type Database = {
 					quietness: number | null;
 					recommended_book_en: Json | null;
 					recommended_book_ko: Json | null;
-					region: string | null;
+					region_en: string | null;
+					region_ko: string | null;
 					status: string | null;
 					tags: string[] | null;
 					translation_reviewed: boolean | null;
 					updated_at: string | null;
 				};
 				Insert: {
-					address_en?: string | null;
-					address_ko?: string | null;
 					amenities?: string[] | null;
 					category?: string | null;
 					created_at?: string | null;
@@ -74,15 +71,14 @@ export type Database = {
 					quietness?: number | null;
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
-					region?: string | null;
+					region_en?: string | null;
+					region_ko?: string | null;
 					status?: string | null;
 					tags?: string[] | null;
 					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
 				};
 				Update: {
-					address_en?: string | null;
-					address_ko?: string | null;
 					amenities?: string[] | null;
 					category?: string | null;
 					created_at?: string | null;
@@ -99,7 +95,8 @@ export type Database = {
 					quietness?: number | null;
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
-					region?: string | null;
+					region_en?: string | null;
+					region_ko?: string | null;
 					status?: string | null;
 					tags?: string[] | null;
 					translation_reviewed?: boolean | null;

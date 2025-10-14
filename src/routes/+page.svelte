@@ -23,10 +23,18 @@
 		}
 	});
 
-	let locations: UiPlace[] = [];
+	// State management
+	let allLocations: UiPlace[] = []; // All loaded locations
+	let filteredLocations: UiPlace[] = []; // Filtered by search
+	let displayedLocations: UiPlace[] = []; // Currently displayed (lazy loaded)
 	let loading = true;
+	let loadingMore = false;
 	let error: string | null = null;
 	let rawData: any[] = []; // Store raw data from database
+	let searchQuery = '';
+	let hasMoreData = true;
+	let currentPage = 0;
+	const ITEMS_PER_PAGE = 20;
 
 	// Make translations reactive
 	$: currentLocale = $locale || 'en';
@@ -36,13 +44,65 @@
 	$: quietnessHeader = $_('table.header.quietness');
 	$: facilityHeader = $_('table.header.facility');
 
-	async function loadLocations(): Promise<void> {
+	// Search functionality
+	function searchLocations(query: string): void {
+		searchQuery = query.toLowerCase().trim();
+
+		if (!searchQuery) {
+			filteredLocations = [...allLocations];
+		} else {
+			filteredLocations = allLocations.filter((location) => {
+				const searchFields = [
+					location.name,
+					location.description,
+					location.region,
+					location.category,
+					location.amenities?.join(' '),
+					location.recommended_book?.title,
+					location.recommended_book?.author
+				]
+					.filter(Boolean)
+					.join(' ')
+					.toLowerCase();
+
+				return searchFields.includes(searchQuery);
+			});
+		}
+
+		// Reset pagination when searching
+		currentPage = 0;
+		displayedLocations = [];
+		hasMoreData = filteredLocations.length > 0;
+		loadMoreLocations();
+	}
+
+	// Handle search event
+	function handleSearchEvent(event: CustomEvent<string>): void {
+		searchLocations(event.detail);
+	}
+
+	// Load more locations for lazy loading
+	function loadMoreLocations(): void {
+		if (loadingMore || !hasMoreData) return;
+
+		loadingMore = true;
+		const startIndex = currentPage * ITEMS_PER_PAGE;
+		const endIndex = startIndex + ITEMS_PER_PAGE;
+		const newLocations = filteredLocations.slice(startIndex, endIndex);
+
+		displayedLocations = [...displayedLocations, ...newLocations];
+		currentPage++;
+		hasMoreData = endIndex < filteredLocations.length;
+		loadingMore = false;
+	}
+
+	async function loadAllLocations(): Promise<void> {
 		try {
 			loading = true;
 			const { data, error: supabaseError } = await supabase
 				.from('places')
 				.select(
-					'id, original_language, name_en, name_ko, description_en, description_ko, address_en, address_ko, region, category, quietness, amenities, hours, tags, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
+					'id, original_language, name_en, name_ko, description_en, description_ko, region_en, region_ko, category, quietness, amenities, hours, tags, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
 				)
 				.eq('status', 'approved')
 				.order('updated_at', { ascending: false });
@@ -51,7 +111,10 @@
 
 			rawData = data ?? [];
 			// Process locations with current locale
-			locations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
+			allLocations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
+			filteredLocations = [...allLocations];
+			hasMoreData = allLocations.length > 0;
+			loadMoreLocations();
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'An unknown error occurred';
 			console.error('Error loading locations:', err);
@@ -62,11 +125,13 @@
 
 	// Reprocess locations when language changes
 	$: if (rawData.length > 0) {
-		locations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
+		allLocations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
+		// Re-run search with current query
+		searchLocations(searchQuery);
 	}
 
 	onMount(() => {
-		loadLocations();
+		loadAllLocations();
 	});
 </script>
 
@@ -76,7 +141,7 @@
 
 <HeroHeader />
 
-<SearchBar on:search={loadLocations} />
+<SearchBar bind:searchQuery on:search={handleSearchEvent} />
 
 {#if loading}
 	<div class="loading flex min-h-[60vh] items-center justify-center text-brand-primary">
@@ -84,12 +149,24 @@
 	</div>
 {:else if error}
 	<div class="error">{$_('messages.error')}: {error}</div>
-{:else if locations.length === 0}
+{:else if displayedLocations.length === 0}
 	<div class="empty flex min-h-[60vh] flex-col items-center justify-center text-center">
-		<h2>{$_('messages.noLocations')}</h2>
-		<p>{$_('messages.beFirst')} <a href="/submit">{$_('messages.addSpot')}</a></p>
+		{#if searchQuery}
+			<h2>{$_('search.noResults')} "{searchQuery}"</h2>
+			<p>
+				Try a different search term or <button
+					on:click={() => searchLocations('')}
+					class="text-brand-primary underline hover:text-brand-secondary"
+					>{$_('search.clearSearch')}</button
+				>
+			</p>
+		{:else}
+			<h2>{$_('messages.noLocations')}</h2>
+			<p>{$_('messages.beFirst')} <a href="/submit">{$_('messages.addSpot')}</a></p>
+		{/if}
 	</div>
 {:else}
+	<!-- Desktop table -->
 	<table class="mt-5 mb-8 hidden w-full table-fixed border-collapse md:table">
 		<thead class="hidden border-b-2 border-brand-primary md:table-header-group">
 			<tr>
@@ -102,9 +179,34 @@
 			</tr>
 		</thead>
 		<tbody class="hidden md:table-row-group">
-			{#each locations as location, index (location.id)}
+			{#each displayedLocations as location, index (location.id)}
 				<LocationRow {location} {index} />
 			{/each}
 		</tbody>
 	</table>
+
+	<!-- Mobile cards container -->
+	<div class="mt-5 mb-8 md:hidden">
+		{#each displayedLocations as location, index (location.id)}
+			<LocationRow {location} {index} />
+		{/each}
+	</div>
+
+	<!-- Load More Button -->
+	{#if hasMoreData}
+		<div class="flex justify-center py-8">
+			<button
+				on:click={loadMoreLocations}
+				disabled={loadingMore}
+				class="rounded-lg bg-brand-primary px-6 py-3 text-white transition-colors hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
+			>
+				{#if loadingMore}
+					{$_('search.loadingMore')}
+				{:else}
+					{$_('search.loadMore')} ({filteredLocations.length - displayedLocations.length}
+					{$_('search.remaining')})
+				{/if}
+			</button>
+		</div>
+	{/if}
 {/if}

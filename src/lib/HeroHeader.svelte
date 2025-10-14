@@ -13,12 +13,12 @@
 <header class="hero mx-10 my-10 mb-8 flex flex-col justify-between gap-6 md:flex-row">
 	<div class="text-left">
 		<a href="/" class="text-5xl font-medium text-brand-primary">{$_('hero.title')}</a>
-		<p class="mt-2 text-base text-brand-secondary">
+		<p class="mt-2 text-base text-brand-primary">
 			{@html $_('hero.description')}
 			<a target="_blank" href="https://danielkang.top" class="cursor-pointer underline">{author}.</a
 			>
 		</p>
-		<p class="mt-2 text-base text-brand-secondary">
+		<p class="mt-2 text-base text-brand-primary">
 			{#if isAboutPage}
 				<a href="/" class="cursor-pointer">
 					<MoveLeft class="inline-block" />

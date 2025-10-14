@@ -10,6 +10,7 @@ body {
 	overflow-x: hidden;
 	font-family: 'Paperozi', sans-serif;
 	background-color: var(--color-background);
+	word-break: keep-all;
 }
 
 @font-face {
@@ -85,7 +86,7 @@ body {
 }
 
 @theme {
-	--color-brand-primary: #118b50;
-	--color-brand-secondary: #5db996;
-	--color-background: #fffdf0;
+	--color-brand-primary: #328E6E;
+	--color-brand-secondary: #67AE6E;
+	--color-background: #fdfdfd;
 }

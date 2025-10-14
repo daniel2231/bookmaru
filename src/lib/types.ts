@@ -57,7 +57,6 @@ export interface UiPlace {
 	id: string;
 	name: string;
 	description: string | null;
-	address: string | null;
 	region: string | null;
 	category: string | null;
 	quietness: number | null;
@@ -79,9 +78,8 @@ export interface PlaceFormData {
 	name_ko: string | null;
 	description_en: string | null;
 	description_ko: string | null;
-	address_en: string | null;
-	address_ko: string | null;
-	region: string | null;
+	region_en: string | null;
+	region_ko: string | null;
 	latitude: number | null;
 	longitude: number | null;
 	category: string | null;

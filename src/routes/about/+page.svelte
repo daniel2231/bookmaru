@@ -15,7 +15,7 @@
 <div>
 	<HeroHeader />
 
-	<section class="mx-10 mb-16 max-w-3xl text-brand-secondary">
+	<section class="mx-10 mb-16 max-w-3xl text-brand-primary">
 		<h1 class="mb-4 text-2xl font-semibold text-brand-primary">{$_('about.title')}</h1>
 		<p class="mb-4 whitespace-pre-line break-keep">{@html $_('about.description')}</p>
 		<p class="text-sm">{@html $_('about.footerNote')}</p>
