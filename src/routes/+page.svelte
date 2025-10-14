@@ -77,8 +77,8 @@
 	}
 
 	// Handle search event
-	function handleSearchEvent(event: CustomEvent<string>): void {
-		searchLocations(event.detail);
+	function handleSearchEvent(query: string): void {
+		searchLocations(query);
 	}
 
 	// Load more locations for lazy loading
@@ -141,7 +141,7 @@
 
 <HeroHeader />
 
-<SearchBar bind:searchQuery on:search={handleSearchEvent} />
+<SearchBar bind:searchQuery onSearch={handleSearchEvent} />
 
 {#if loading}
 	<div class="loading flex min-h-[60vh] items-center justify-center text-brand-primary">
@@ -155,7 +155,7 @@
 			<h2>{$_('search.noResults')} "{searchQuery}"</h2>
 			<p>
 				Try a different search term or <button
-					on:click={() => searchLocations('')}
+					onclick={() => searchLocations('')}
 					class="text-brand-primary underline hover:text-brand-secondary"
 					>{$_('search.clearSearch')}</button
 				>
@@ -196,7 +196,7 @@
 	{#if hasMoreData}
 		<div class="flex justify-center py-8">
 			<button
-				on:click={loadMoreLocations}
+				onclick={loadMoreLocations}
 				disabled={loadingMore}
 				class="rounded-lg bg-brand-primary px-6 py-3 text-white transition-colors hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-50"
 			>

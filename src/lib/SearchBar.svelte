@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { _ } from 'svelte-i18n';
 	import { Search, X } from '@lucide/svelte';
 
-	export let searchQuery = '';
-
-	const dispatch = createEventDispatcher();
+	let {
+		searchQuery = $bindable(''),
+		onSearch
+	}: {
+		searchQuery?: string;
+		onSearch?: (query: string) => void;
+	} = $props();
 
 	let debounceTimer: NodeJS.Timeout;
 
@@ -13,24 +16,28 @@
 	function handleSearch(query: string): void {
 		clearTimeout(debounceTimer);
 		debounceTimer = setTimeout(() => {
-			dispatch('search', query);
+			onSearch?.(query);
 		}, 300); // 300ms debounce
 	}
 
 	function clearSearch(): void {
 		searchQuery = '';
-		dispatch('search', '');
+		onSearch?.('');
 	}
 
 	// Watch for changes in searchQuery
-	$: if (searchQuery !== undefined) {
-		handleSearch(searchQuery);
-	}
+	$effect(() => {
+		if (searchQuery !== undefined) {
+			handleSearch(searchQuery);
+		}
+	});
 </script>
 
 <div>
 	<div class="relative">
-		<Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-brand-primary" />
+		<Search
+			class="pointer-events-none absolute top-1/3 left-3 h-4 w-4 -translate-y-1/2 text-brand-primary"
+		/>
 		<input
 			type="text"
 			bind:value={searchQuery}
@@ -39,7 +46,7 @@
 		/>
 		{#if searchQuery}
 			<button
-				on:click={clearSearch}
+				onclick={clearSearch}
 				class="absolute top-1/2 right-3 -translate-y-1/2 text-brand-primary transition-colors hover:text-brand-secondary"
 				aria-label="Clear search"
 			>
