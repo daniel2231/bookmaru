@@ -13,7 +13,7 @@ export interface MetaTags {
 	author?: string;
 }
 
-const BASE_URL = 'https://bookmaru.vercel.app';
+const BASE_URL = 'https://bookmaru.netlify.app';
 const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
 const DEFAULT_AUTHOR = 'Daniel Kang (@danielkang)';
 
