@@ -7,13 +7,21 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				manualChunks: {
-					// Vendor chunks for better caching
-					vendor: ['svelte', '@sveltejs/kit'],
-					supabase: ['@supabase/supabase-js', '@supabase/ssr'],
-					ui: ['@lucide/svelte', 'svelte-i18n'],
-					// Separate chunk for large components
-					components: ['$lib/LocationRow.svelte', '$lib/SearchBar.svelte']
+				manualChunks: (id) => {
+					// Create vendor chunks for better caching
+					if (id.includes('node_modules')) {
+						if (id.includes('@supabase')) {
+							return 'supabase';
+						}
+						if (id.includes('@lucide') || id.includes('svelte-i18n')) {
+							return 'ui';
+						}
+						if (id.includes('svelte') && !id.includes('@sveltejs/kit')) {
+							return 'svelte';
+						}
+						// Group other node_modules into vendor chunk
+						return 'vendor';
+					}
 				}
 			}
 		},
