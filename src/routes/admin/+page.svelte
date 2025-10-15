@@ -5,6 +5,7 @@
 	import { browser } from '$app/environment';
 	import { locale } from 'svelte-i18n';
 	import type { Database } from '$lib/database.types';
+	import { getPageMeta } from '$lib/meta';
 
 	type Place = Database['public']['Tables']['places']['Row'];
 	type PlaceUpdate = Database['public']['Tables']['places']['Update'];
@@ -17,6 +18,9 @@
 
 	// Get localized region for display
 	$: currentLocale = $locale;
+
+	// Generate meta tags
+	$: metaTags = getPageMeta('admin');
 	$: getLocalizedRegion = (submission: Place) => {
 		const isKo = currentLocale?.startsWith('ko');
 		return isKo
@@ -263,7 +267,7 @@
 </script>
 
 <svelte:head>
-	<title>Admin Panel - Bookmaru</title>
+	{@html metaTags}
 </svelte:head>
 
 <div class="min-h-screen bg-background">

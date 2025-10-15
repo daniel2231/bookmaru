@@ -7,6 +7,7 @@
 	import type { UiPlace } from '$lib/types';
 	import { get as getStore } from 'svelte/store';
 	import { placeRowToUiPlace } from '$lib/utils';
+	import { getPageMeta } from '$lib/meta';
 
 	import '$lib/i18n'; // Initialize i18n
 	import HeroHeader from '$lib/HeroHeader.svelte';
@@ -42,6 +43,9 @@
 	$: cityHeader = $_('table.header.city');
 	$: categoryHeader = $_('table.header.category');
 	$: quietnessHeader = $_('table.header.quietness');
+
+	// Generate meta tags
+	$: metaTags = getPageMeta('home');
 
 	// Search functionality
 	function searchLocations(query: string): void {
@@ -134,7 +138,7 @@
 </script>
 
 <svelte:head>
-	<title>{$_('app.title')} - {$_('app.tagline')}</title>
+	{@html metaTags}
 </svelte:head>
 
 <HeroHeader />

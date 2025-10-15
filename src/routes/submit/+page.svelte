@@ -7,6 +7,7 @@
 	import { onDestroy } from 'svelte';
 	import type { PlaceInsert, Language } from '$lib/types';
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
+	import { getPageMeta } from '$lib/meta';
 	import '$lib/i18n';
 
 	// Form model adapted for `places` table
@@ -134,10 +135,13 @@
 		submitted = false;
 		error = null;
 	}
+
+	// Generate meta tags
+	$: metaTags = getPageMeta('submit');
 </script>
 
 <svelte:head>
-	<title>{$_('form.title')} - {$_('app.title')}</title>
+	{@html metaTags}
 </svelte:head>
 
 <div class="mx-auto max-w-4xl px-4 py-8">
