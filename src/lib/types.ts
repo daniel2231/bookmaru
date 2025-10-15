@@ -60,9 +60,6 @@ export interface UiPlace {
 	region: string | null;
 	category: string | null;
 	quietness: number | null;
-	amenities: string[] | null;
-	hours: string | null;
-	tags: string[] | null;
 	photos: string[] | null;
 	latitude: number | null;
 	longitude: number | null;
@@ -84,8 +81,5 @@ export interface PlaceFormData {
 	longitude: number | null;
 	category: string | null;
 	quietness: number | null;
-	amenities: string[] | null;
-	hours: string | null;
-	tags: string[] | null;
 	photos: string[] | null;
 }

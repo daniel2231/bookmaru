@@ -42,7 +42,6 @@
 	$: cityHeader = $_('table.header.city');
 	$: categoryHeader = $_('table.header.category');
 	$: quietnessHeader = $_('table.header.quietness');
-	$: facilityHeader = $_('table.header.facility');
 
 	// Search functionality
 	function searchLocations(query: string): void {
@@ -57,7 +56,6 @@
 					location.description,
 					location.region,
 					location.category,
-					location.amenities?.join(' '),
 					location.recommended_book?.title,
 					location.recommended_book?.author
 				]
@@ -102,7 +100,7 @@
 			const { data, error: supabaseError } = await supabase
 				.from('places')
 				.select(
-					'id, original_language, name_en, name_ko, description_en, description_ko, region_en, region_ko, category, quietness, amenities, hours, tags, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
+					'id, original_language, name_en, name_ko, description_en, description_ko, region_en, region_ko, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
 				)
 				.eq('status', 'approved')
 				.order('updated_at', { ascending: false });
@@ -167,23 +165,28 @@
 	</div>
 {:else}
 	<!-- Desktop table -->
-	<table class="mt-5 mb-8 hidden w-full table-fixed border-collapse md:table">
-		<thead class="hidden border-b-2 border-brand-primary md:table-header-group">
-			<tr>
-				<th class="w-24 px-4 py-2 text-left text-sm font-medium"></th>
-				<th class="py-2 text-left text-sm font-medium text-brand-primary">{nameHeader}</th>
-				<th class="py-2 text-left text-sm font-medium text-brand-primary">{cityHeader}</th>
-				<th class="py-2 text-left text-sm font-medium text-brand-primary">{categoryHeader}</th>
-				<th class="py-2 text-left text-sm font-medium text-brand-primary">{quietnessHeader}</th>
-				<th class="py-2 text-left text-sm font-medium text-brand-primary">{facilityHeader}</th>
-			</tr>
-		</thead>
-		<tbody class="hidden md:table-row-group">
-			{#each displayedLocations as location, index (location.id)}
-				<LocationRow {location} {index} />
-			{/each}
-		</tbody>
-	</table>
+	<div class="mt-5 mb-8 hidden md:block">
+		<table class="w-full table-fixed border-collapse">
+			<thead class="border-b-2 border-brand-primary">
+				<tr>
+					<th class="w-16 px-4 py-2 text-left text-sm font-medium"></th>
+					<th class="w-2/5 py-2 text-left text-sm font-medium text-brand-primary">{nameHeader}</th>
+					<th class="w-40 py-2 text-left text-sm font-medium text-brand-primary">{cityHeader}</th>
+					<th class="w-36 py-2 text-left text-sm font-medium text-brand-primary"
+						>{categoryHeader}</th
+					>
+					<th class="w-32 py-2 text-left text-sm font-medium text-brand-primary"
+						>{quietnessHeader}</th
+					>
+				</tr>
+			</thead>
+			<tbody>
+				{#each displayedLocations as location, index (location.id)}
+					<LocationRow {location} {index} />
+				{/each}
+			</tbody>
+		</table>
+	</div>
 
 	<!-- Mobile cards container -->
 	<div class="mt-5 mb-8 md:hidden">

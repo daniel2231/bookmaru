@@ -63,9 +63,6 @@
 				"medium": "보통",
 				"high": "조용함"
 			},
-			"amenities": "편의시설",
-			"amenitiesPlaceholder": "와이파이, 콘센트, 조용함",
-			"amenitiesHint": "쉼표로 구분",
 			"recommendedBook": "추천 도서 (선택사항)",
 			"recommendedBookHint": "이 장소에 어울리는 책을 추천해주세요",
 			"bookTitle": "책 제목",
@@ -87,7 +84,7 @@
 		},
 		"buttons": {
 			"cancel": "취소",
-			"submit": "검토 요청",
+			"submit": "제출",
 			"submitting": "제출 중...",
 			"change": "변경",
 			"remove": "삭제"
@@ -121,8 +118,7 @@
 			"name": "장소명",
 			"city": "도시",
 			"category": "카테고리",
-			"quietness": "조용함",
-			"facility": "편의시설"
+			"quietness": "조용함"
 		}
 	},
 	"categories": {
@@ -133,7 +129,6 @@
 		"public_space": "공공공간",
 		"university": "대학교",
 		"community_center": "주민센터",
-		"coworking": "코워킹스페이스",
 		"other": "기타"
 	},
 	"about": {

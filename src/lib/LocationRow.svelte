@@ -19,10 +19,7 @@
 	$: recommendedBooksBy = $_('location.recommendedBooks.by');
 	$: recommendedBooksReadMore = $_('location.recommendedBooks.readMore');
 	$: recommendedBooksNone = $_('location.recommendedBooks.none');
-	$: featuresTitle = $_('location.features.title');
-
 	$: quietnessLabel = $_('table.header.quietness');
-	$: facilityLabel = $_('table.header.facility');
 
 	function toggleExpanded() {
 		isExpanded = !isExpanded;
@@ -119,22 +116,28 @@
 			</div>
 
 			<!-- Name Column -->
-			<div class="flex-1">
-				<h4 class="text-xs font-medium text-brand-primary sm:text-sm">{location.name}</h4>
+			<div class="min-w-0 flex-1">
+				<h4 class="truncate text-xs font-medium text-brand-primary sm:text-sm">{location.name}</h4>
 			</div>
 
 			<!-- City Column -->
-			<div class="hidden w-20 text-xs font-medium text-brand-primary sm:block sm:text-sm">
+			<div
+				class="hidden w-40 px-6 text-left text-xs font-medium text-brand-primary sm:block sm:text-sm"
+			>
 				{location.region ?? '-'}
 			</div>
 
 			<!-- Category Column -->
-			<div class="hidden w-20 text-xs font-medium text-brand-primary sm:block sm:text-sm">
+			<div
+				class="hidden w-36 px-6 text-left text-xs font-medium text-brand-primary sm:block sm:text-sm"
+			>
 				{categoryText}
 			</div>
 
 			<!-- Quietness Column -->
-			<div class="hidden w-16 text-xs font-medium text-brand-primary sm:block sm:text-sm">
+			<div
+				class="hidden w-32 px-6 text-left text-xs font-medium text-brand-primary sm:block sm:text-sm"
+			>
 				{#if location.quietness}
 					{location.quietness}/5
 				{:else}
@@ -187,13 +190,13 @@
 <!-- Desktop expanded detail row -->
 {#if isExpanded}
 	<tr class="hidden border-0 md:table-row">
-		<td
-			colspan="6"
-			class="overflow-hidden border-b border-brand-primary bg-brand-primary/10 p-0 text-left"
-		>
-			<div transition:fade={{ duration: 180 }}>
+		<td colspan="5" class="p-0">
+			<div
+				class="-ml-4 w-screen border-b border-brand-primary bg-brand-primary/10"
+				transition:fade={{ duration: 180 }}
+			>
 				<div class="px-10 py-8" transition:slide={{ duration: 280, easing: cubicOut }}>
-					<div class="flex flex-col gap-4 md:flex-row">
+					<div class="flex flex-col gap-7 md:flex-row">
 						<!-- Left: Image -->
 						<div class="md:w-1/3">
 							{#if location.photos && location.photos.length}
@@ -206,7 +209,7 @@
 						</div>
 
 						<!-- Right: Description and Features -->
-						<div class="space-y-3 md:w-1/3">
+						<div class="space-y-3 md:w-1/2">
 							{#if location.description}
 								<div>
 									<h5 class="mb-2 font-medium text-brand-primary">{descriptionLabel}</h5>
@@ -248,15 +251,6 @@
 								{:else}
 									<p class="text-sm text-brand-primary">{recommendedBooksNone}</p>
 								{/if}
-							</div>
-
-							<div>
-								<h5 class="mb-2 font-medium text-brand-primary">{featuresTitle}</h5>
-								<div class="flex flex-wrap gap-2 text-sm text-brand-primary">
-									{#if location.amenities && location.amenities.length > 0}
-										{facilityLabel}: {location.amenities.join(', ')}
-									{/if}
-								</div>
 							</div>
 						</div>
 					</div>
@@ -325,16 +319,6 @@
 							{:else}
 								<p class="text-sm text-brand-primary">{recommendedBooksNone}</p>
 							{/if}
-						</div>
-
-						<!-- Features/Facilities -->
-						<div>
-							<h5 class="mb-2 font-medium text-brand-primary">{featuresTitle}</h5>
-							<div class="flex flex-wrap gap-2 text-sm text-brand-primary">
-								{#if location.amenities && location.amenities.length > 0}
-									{facilityLabel}: {location.amenities.join(', ')}
-								{/if}
-							</div>
 						</div>
 					</div>
 				</div>

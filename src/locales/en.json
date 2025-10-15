@@ -63,9 +63,6 @@
 				"medium": "Normal",
 				"high": "Quiet"
 			},
-			"amenities": "Amenities",
-			"amenitiesPlaceholder": "wifi, power outlets, quiet",
-			"amenitiesHint": "Comma-separated",
 			"recommendedBook": "Recommended Book (Optional)",
 			"recommendedBookHint": "Suggest a book that pairs well with this location",
 			"bookTitle": "Book Title",
@@ -121,8 +118,7 @@
 			"name": "Name",
 			"city": "City",
 			"category": "Category",
-			"quietness": "Quietness",
-			"facility": "Facility"
+			"quietness": "Quietness"
 		}
 	},
 	"categories": {
@@ -133,7 +129,6 @@
 		"public_space": "Public space",
 		"university": "University",
 		"community_center": "Community center",
-		"coworking": "Coworking",
 		"other": "Other"
 	},
 	"about": {

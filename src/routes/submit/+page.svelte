@@ -16,7 +16,6 @@
 		region: '',
 		category: '',
 		quietness: '', // string select 1-5, converted to number on submit
-		amenitiesText: '', // comma-separated, converted to string[] on submit
 		bookTitle: '',
 		bookAuthor: '',
 		bookLink: ''
@@ -77,7 +76,6 @@
 			const original_language: Language = isKo ? 'ko' : 'en';
 
 			const quietness = formData.quietness ? Number(formData.quietness) : null;
-			const amenities = parseCommaSeparated(formData.amenitiesText);
 
 			const imageUrls = await uploadImages(selectedFiles);
 
@@ -101,7 +99,6 @@
 				region_ko: isKo ? formData.region || null : null,
 				category: formData.category || null,
 				quietness,
-				amenities,
 				photos: imageUrls.length ? imageUrls : null,
 				recommended_book_en: isKo ? null : recommendedBook,
 				recommended_book_ko: isKo ? recommendedBook : null,
@@ -130,7 +127,6 @@
 			region: '',
 			category: '',
 			quietness: '',
-			amenitiesText: '',
 			bookTitle: '',
 			bookAuthor: '',
 			bookLink: ''
@@ -380,11 +376,11 @@
 							<input
 								type="radio"
 								name="category"
-								value="coworking"
+								value="bookstore"
 								bind:group={formData.category}
 								class="h-4 w-4 appearance-none border-2 border-slate-300 bg-white checked:border-green-500 checked:bg-green-500 checked:ring-2 checked:ring-green-200"
 							/>
-							<span>{$_('categories.coworking')}</span>
+							<span>{$_('categories.bookstore')}</span>
 						</label>
 						<label
 							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
@@ -478,20 +474,6 @@
 						>
 					</div>
 				</div>
-			</div>
-
-			<div class="mb-5">
-				<label for="amenities" class="mb-1.5 block font-medium text-brand-primary"
-					>{$_('form.fields.amenities')}</label
-				>
-				<input
-					id="amenities"
-					type="text"
-					bind:value={formData.amenitiesText}
-					placeholder={$_('form.fields.amenitiesPlaceholder')}
-					class="w-full rounded-none border border-gray-300 px-2.5 py-2.5 text-sm transition-colors focus:border-brand-primary focus:outline-none"
-				/>
-				<small class="block text-sm text-brand-secondary">{$_('form.fields.amenitiesHint')}</small>
 			</div>
 
 			<!-- Recommended Book Section -->

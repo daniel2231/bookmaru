@@ -31,12 +31,10 @@ export type Database = {
 			};
 			places: {
 				Row: {
-					amenities: string[] | null;
 					category: string | null;
 					created_at: string | null;
 					description_en: string | null;
 					description_ko: string | null;
-					hours: string | null;
 					id: number;
 					latitude: number | null;
 					longitude: number | null;
@@ -50,17 +48,14 @@ export type Database = {
 					region_en: string | null;
 					region_ko: string | null;
 					status: string | null;
-					tags: string[] | null;
 					translation_reviewed: boolean | null;
 					updated_at: string | null;
 				};
 				Insert: {
-					amenities?: string[] | null;
 					category?: string | null;
 					created_at?: string | null;
 					description_en?: string | null;
 					description_ko?: string | null;
-					hours?: string | null;
 					id?: number;
 					latitude?: number | null;
 					longitude?: number | null;
@@ -74,17 +69,14 @@ export type Database = {
 					region_en?: string | null;
 					region_ko?: string | null;
 					status?: string | null;
-					tags?: string[] | null;
 					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
 				};
 				Update: {
-					amenities?: string[] | null;
 					category?: string | null;
 					created_at?: string | null;
 					description_en?: string | null;
 					description_ko?: string | null;
-					hours?: string | null;
 					id?: number;
 					latitude?: number | null;
 					longitude?: number | null;
@@ -98,7 +90,6 @@ export type Database = {
 					region_en?: string | null;
 					region_ko?: string | null;
 					status?: string | null;
-					tags?: string[] | null;
 					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
 				};

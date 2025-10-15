@@ -536,12 +536,13 @@
 								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
 							>
 								<option value="">Select category</option>
-								<option value="bookstore">Bookstore</option>
-								<option value="library">Library</option>
+								<option value="studycafe">Study cafe</option>
 								<option value="cafe">Cafe</option>
-								<option value="restaurant">Restaurant</option>
-								<option value="park">Park</option>
-								<option value="museum">Museum</option>
+								<option value="library">Library</option>
+								<option value="bookstore">Bookstore</option>
+								<option value="public_space">Public space</option>
+								<option value="university">University</option>
+								<option value="community_center">Community center</option>
 								<option value="other">Other</option>
 							</select>
 						</div>
