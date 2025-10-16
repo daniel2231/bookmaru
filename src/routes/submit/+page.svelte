@@ -25,8 +25,8 @@
 	};
 
 	// Bilingual region data from cascading dropdown
-	let regionData: { ko: string; en: string } | null = null;
-	let districtData: { ko: string; en: string } | null = null;
+	let regionData: { ko: string; en: string } | null | undefined = null;
+	let districtData: { ko: string; en: string } | null | undefined = null;
 
 	let submitting = false;
 	let error: string | null = null;
@@ -108,9 +108,7 @@
 				city_en: regionData?.en || null,
 				district_ko: districtData?.ko || null,
 				district_en: districtData?.en || null,
-				// Keep old fields for backward compatibility (will be deprecated)
-				region_en: null,
-				region_ko: null,
+				// Old region fields removed - using city/district instead
 				category: formData.category || null,
 				quietness,
 				photos: imageUrls.length ? imageUrls : null,
@@ -302,8 +300,8 @@
 					on:regionChange={(e) => {
 						formData.region = e.detail.region;
 						formData.district = e.detail.district;
-						regionData = e.detail.regionData;
-						districtData = e.detail.districtData;
+						regionData = e.detail.regionData || null;
+						districtData = e.detail.districtData || null;
 					}}
 				/>
 			</div>

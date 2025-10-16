@@ -74,7 +74,8 @@ export const POST: RequestHandler = async ({ request }) => {
 			// Korean submission - translate to English
 			const name = submission.name_ko;
 			const description = submission.description_ko;
-			const region = submission.region_ko;
+			const city = submission.city_ko;
+			const district = submission.district_ko;
 			const recommendedBook = submission.recommended_book_ko;
 
 			if (name) {
@@ -84,7 +85,7 @@ export const POST: RequestHandler = async ({ request }) => {
 					originalLanguage,
 					name,
 					description,
-					region,
+					[city, district].filter(Boolean).join(' '),
 					recommendedBook
 				);
 			}
@@ -92,7 +93,8 @@ export const POST: RequestHandler = async ({ request }) => {
 			// English submission - translate to Korean
 			const name = submission.name_en;
 			const description = submission.description_en;
-			const region = submission.region_en;
+			const city = submission.city_en;
+			const district = submission.district_en;
 			const recommendedBook = submission.recommended_book_en;
 
 			if (name) {
@@ -102,7 +104,7 @@ export const POST: RequestHandler = async ({ request }) => {
 					originalLanguage,
 					name,
 					description,
-					region,
+					[city, district].filter(Boolean).join(' '),
 					recommendedBook
 				);
 			}
@@ -123,7 +125,10 @@ export const POST: RequestHandler = async ({ request }) => {
 					updateData.description_en = translationData.description;
 				}
 				if (translationData.region) {
-					updateData.region_en = translationData.region;
+					// Split region into city and district if possible
+					const parts = translationData.region.split(' ');
+					updateData.city_en = parts[0] || null;
+					updateData.district_en = parts.slice(1).join(' ') || null;
 				}
 				if (translationData.recommended_book) {
 					updateData.recommended_book_en = translationData.recommended_book;
@@ -135,7 +140,10 @@ export const POST: RequestHandler = async ({ request }) => {
 					updateData.description_ko = translationData.description;
 				}
 				if (translationData.region) {
-					updateData.region_ko = translationData.region;
+					// Split region into city and district if possible
+					const parts = translationData.region.split(' ');
+					updateData.city_ko = parts[0] || null;
+					updateData.district_ko = parts.slice(1).join(' ') || null;
 				}
 				if (translationData.recommended_book) {
 					updateData.recommended_book_ko = translationData.recommended_book;

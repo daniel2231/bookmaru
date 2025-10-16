@@ -34,9 +34,13 @@ export function placeRowToUiPlace(row: PlaceRow, currentLocale: string): UiPlace
 		}
 	}
 
-	// Fallback to old region fields if new fields are not available
+	// Fallback to city/district fields if region is not available
 	if (!region) {
-		region = isKo ? (row.region_ko ?? row.region_en) : (row.region_en ?? row.region_ko);
+		const city = isKo ? (row.city_ko ?? row.city_en) : (row.city_en ?? row.city_ko);
+		const district = isKo
+			? (row.district_ko ?? row.district_en)
+			: (row.district_en ?? row.district_ko);
+		region = [city, district].filter(Boolean).join(' ');
 	}
 
 	// Parse recommended book from JSONB (now single object instead of array)

@@ -28,8 +28,6 @@ export type Database = {
 					quietness: number | null;
 					recommended_book_en: Json | null;
 					recommended_book_ko: Json | null;
-					region_en: string | null;
-					region_ko: string | null;
 					status: string | null;
 					translation_reviewed: boolean | null;
 					updated_at: string | null;
@@ -53,8 +51,6 @@ export type Database = {
 					quietness?: number | null;
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
-					region_en?: string | null;
-					region_ko?: string | null;
 					status?: string | null;
 					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
@@ -78,8 +74,6 @@ export type Database = {
 					quietness?: number | null;
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
-					region_en?: string | null;
-					region_ko?: string | null;
 					status?: string | null;
 					translation_reviewed?: boolean | null;
 					updated_at?: string | null;

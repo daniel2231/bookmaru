@@ -23,9 +23,13 @@
 	$: metaTags = getPageMeta('admin');
 	$: getLocalizedRegion = (submission: Place) => {
 		const isKo = currentLocale?.startsWith('ko');
-		return isKo
-			? (submission.region_ko ?? submission.region_en)
-			: (submission.region_en ?? submission.region_ko);
+		const city = isKo
+			? (submission.city_ko ?? submission.city_en)
+			: (submission.city_en ?? submission.city_ko);
+		const district = isKo
+			? (submission.district_ko ?? submission.district_en)
+			: (submission.district_en ?? submission.district_ko);
+		return [city, district].filter(Boolean).join(' ');
 	};
 	let password = '';
 	let isLoggingIn = false;
@@ -40,8 +44,6 @@
 		city_en: '',
 		district_ko: '',
 		district_en: '',
-		region_en: '',
-		region_ko: '',
 		original_language: 'en'
 	};
 	let isEditing = false;
@@ -209,8 +211,6 @@
 			city_en: submission.city_en || '',
 			district_ko: submission.district_ko || '',
 			district_en: submission.district_en || '',
-			region_en: submission.region_en || '',
-			region_ko: submission.region_ko || '',
 			original_language: submission.original_language || 'en'
 		};
 		isEditing = true;
@@ -229,8 +229,6 @@
 			city_en: '',
 			district_ko: '',
 			district_en: '',
-			region_en: '',
-			region_ko: '',
 			original_language: 'en'
 		};
 	}
@@ -258,8 +256,6 @@
 					city_en: editForm.city_en,
 					district_ko: editForm.district_ko,
 					district_en: editForm.district_en,
-					region_en: editForm.region_en,
-					region_ko: editForm.region_ko,
 					original_language: editForm.original_language
 				})
 			});
@@ -652,36 +648,6 @@
 					<!-- Legacy Region Fields (for backward compatibility) -->
 					<div class="space-y-4">
 						<h4 class="text-lg font-medium text-brand-primary">Legacy Region Fields</h4>
-
-						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-							<!-- English Region -->
-							<div>
-								<label for="region_en" class="mb-1 block text-sm font-medium text-brand-primary">
-									Region (English) - Legacy
-								</label>
-								<input
-									id="region_en"
-									type="text"
-									bind:value={editForm.region_en}
-									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
-									placeholder="Enter English region"
-								/>
-							</div>
-
-							<!-- Korean Region -->
-							<div>
-								<label for="region_ko" class="mb-1 block text-sm font-medium text-brand-primary">
-									Region (Korean) - Legacy
-								</label>
-								<input
-									id="region_ko"
-									type="text"
-									bind:value={editForm.region_ko}
-									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
-									placeholder="Enter Korean region"
-								/>
-							</div>
-						</div>
 					</div>
 
 					<!-- Action Buttons -->
