@@ -36,6 +36,10 @@
 		description_en: '',
 		description_ko: '',
 		category: '',
+		city_ko: '',
+		city_en: '',
+		district_ko: '',
+		district_en: '',
 		region_en: '',
 		region_ko: '',
 		original_language: 'en'
@@ -201,6 +205,10 @@
 			description_en: submission.description_en || '',
 			description_ko: submission.description_ko || '',
 			category: submission.category || '',
+			city_ko: submission.city_ko || '',
+			city_en: submission.city_en || '',
+			district_ko: submission.district_ko || '',
+			district_en: submission.district_en || '',
 			region_en: submission.region_en || '',
 			region_ko: submission.region_ko || '',
 			original_language: submission.original_language || 'en'
@@ -217,6 +225,10 @@
 			description_en: '',
 			description_ko: '',
 			category: '',
+			city_ko: '',
+			city_en: '',
+			district_ko: '',
+			district_en: '',
 			region_en: '',
 			region_ko: '',
 			original_language: 'en'
@@ -242,6 +254,10 @@
 					description_en: editForm.description_en,
 					description_ko: editForm.description_ko,
 					category: editForm.category,
+					city_ko: editForm.city_ko,
+					city_en: editForm.city_en,
+					district_ko: editForm.district_ko,
+					district_en: editForm.district_en,
 					region_en: editForm.region_en,
 					region_ko: editForm.region_ko,
 					original_language: editForm.original_language
@@ -570,33 +586,101 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-						<!-- English Region -->
-						<div>
-							<label for="region_en" class="mb-1 block text-sm font-medium text-brand-primary">
-								Region (English)
-							</label>
-							<input
-								id="region_en"
-								type="text"
-								bind:value={editForm.region_en}
-								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
-								placeholder="Enter English region"
-							/>
-						</div>
+					<!-- New City and District Fields -->
+					<div class="space-y-4">
+						<h4 class="text-lg font-medium text-brand-primary">City & District (New Structure)</h4>
 
-						<!-- Korean Region -->
-						<div>
-							<label for="region_ko" class="mb-1 block text-sm font-medium text-brand-primary">
-								Region (Korean)
-							</label>
-							<input
-								id="region_ko"
-								type="text"
-								bind:value={editForm.region_ko}
-								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
-								placeholder="Enter Korean region"
-							/>
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+							<!-- Korean City -->
+							<div>
+								<label for="city_ko" class="mb-1 block text-sm font-medium text-brand-primary">
+									City (Korean)
+								</label>
+								<input
+									id="city_ko"
+									type="text"
+									bind:value={editForm.city_ko}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="e.g., 서울특별시"
+								/>
+							</div>
+
+							<!-- English City -->
+							<div>
+								<label for="city_en" class="mb-1 block text-sm font-medium text-brand-primary">
+									City (English)
+								</label>
+								<input
+									id="city_en"
+									type="text"
+									bind:value={editForm.city_en}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="e.g., Seoul Special Metropolitan City"
+								/>
+							</div>
+
+							<!-- Korean District -->
+							<div>
+								<label for="district_ko" class="mb-1 block text-sm font-medium text-brand-primary">
+									District (Korean)
+								</label>
+								<input
+									id="district_ko"
+									type="text"
+									bind:value={editForm.district_ko}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="e.g., 강남구"
+								/>
+							</div>
+
+							<!-- English District -->
+							<div>
+								<label for="district_en" class="mb-1 block text-sm font-medium text-brand-primary">
+									District (English)
+								</label>
+								<input
+									id="district_en"
+									type="text"
+									bind:value={editForm.district_en}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="e.g., Gangnam-gu"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<!-- Legacy Region Fields (for backward compatibility) -->
+					<div class="space-y-4">
+						<h4 class="text-lg font-medium text-brand-primary">Legacy Region Fields</h4>
+
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+							<!-- English Region -->
+							<div>
+								<label for="region_en" class="mb-1 block text-sm font-medium text-brand-primary">
+									Region (English) - Legacy
+								</label>
+								<input
+									id="region_en"
+									type="text"
+									bind:value={editForm.region_en}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Enter English region"
+								/>
+							</div>
+
+							<!-- Korean Region -->
+							<div>
+								<label for="region_ko" class="mb-1 block text-sm font-medium text-brand-primary">
+									Region (Korean) - Legacy
+								</label>
+								<input
+									id="region_ko"
+									type="text"
+									bind:value={editForm.region_ko}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Enter Korean region"
+								/>
+							</div>
 						</div>
 					</div>
 

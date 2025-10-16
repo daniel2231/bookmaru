@@ -47,9 +47,14 @@
 
 			"type": "유형",
 			"features": "특징",
-			"region": "지역/도시",
-			"regionPlaceholder": "도시 또는 구/군",
-			"regionHint": "형식: 서울 강남구",
+			"region": "시/도",
+			"regionPlaceholder": "지역을 선택하세요",
+			"regionHint": "한국 행정구역에서 선택하세요",
+			"allRegions": "전체 지역",
+			"select_region": "시/도를 선택하세요",
+			"district": "행정구/군",
+			"select_district": "행정구/군을 선택하세요",
+			"selected_region": "선택된 지역",
 			"category": "카테고리",
 			"categoryPlaceholder": "예: 도서관, 카페, 공원",
 			"categorySelectPlaceholder": "카테고리를 선택하세요",
@@ -98,6 +103,13 @@
 			"backHome": "홈으로 돌아가기"
 		}
 	},
+	"submit": {
+		"region": "시/도",
+		"select_region": "시/도를 선택하세요",
+		"district": "행정구/군",
+		"select_district": "행정구/군을 선택하세요",
+		"selected_region": "선택된 지역"
+	},
 	"messages": {
 		"loading": "장소를 불러오는 중...",
 		"error": "오류",
@@ -112,6 +124,13 @@
 		"loadMore": "더 보기",
 		"loadingMore": "로딩 중...",
 		"remaining": "개 남음"
+	},
+	"filters": {
+		"allRegions": "전체 지역",
+		"allCategories": "전체 카테고리",
+		"allLevels": "전체 레벨",
+		"activeFilters": "활성 필터",
+		"clearAll": "모두 지우기"
 	},
 	"table": {
 		"header": {

@@ -47,9 +47,14 @@
 
 			"type": "Type",
 			"features": "Features",
-			"region": "City/Region",
-			"regionPlaceholder": "City or district",
-			"regionHint": "Format: Seoul Gangnam-gu",
+			"region": "Province/City",
+			"regionPlaceholder": "Select a region",
+			"regionHint": "Choose from Korean administrative districts",
+			"allRegions": "All Regions",
+			"select_region": "Select Province/City",
+			"district": "District/County",
+			"select_district": "Select District/County",
+			"selected_region": "Selected Region",
 			"category": "Category",
 			"categoryPlaceholder": "e.g., Library, Cafe, Park",
 			"categorySelectPlaceholder": "Select a category",
@@ -98,6 +103,13 @@
 			"backHome": "Back to Home"
 		}
 	},
+	"submit": {
+		"region": "Province/City",
+		"select_region": "Select Province/City",
+		"district": "District/County",
+		"select_district": "Select District/County",
+		"selected_region": "Selected Region"
+	},
 	"messages": {
 		"loading": "Loading locations...",
 		"error": "Error",
@@ -112,6 +124,13 @@
 		"loadMore": "Load More",
 		"loadingMore": "Loading more...",
 		"remaining": "remaining"
+	},
+	"filters": {
+		"allRegions": "All Regions",
+		"allCategories": "All Categories",
+		"allLevels": "All Levels",
+		"activeFilters": "Active filters",
+		"clearAll": "Clear all"
 	},
 	"table": {
 		"header": {

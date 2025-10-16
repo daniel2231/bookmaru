@@ -24,8 +24,10 @@ export const GET = async ({ url }) => {
 				name_ko, 
 				description_en, 
 				description_ko, 
-				region_en, 
-				region_ko, 
+				city_en, 
+				city_ko, 
+				district_en, 
+				district_ko, 
 				category, 
 				quietness, 
 				photos, 
@@ -50,8 +52,10 @@ export const GET = async ({ url }) => {
 				name_ko.ilike.${searchTerm},
 				description_en.ilike.${searchTerm},
 				description_ko.ilike.${searchTerm},
-				region_en.ilike.${searchTerm},
-				region_ko.ilike.${searchTerm},
+				city_en.ilike.${searchTerm},
+				city_ko.ilike.${searchTerm},
+				district_en.ilike.${searchTerm},
+				district_ko.ilike.${searchTerm},
 				category.ilike.${searchTerm}
 			`);
 		}
@@ -59,11 +63,11 @@ export const GET = async ({ url }) => {
 		// Add pagination
 		query = query.range(offset, offset + limit - 1);
 
-		const { data, error, count } = await query;
+		const { data, error } = await query;
 
 		if (error) {
 			console.error('Supabase query error:', error);
-			return json({ error: 'Failed to fetch places' }, { status: 500 });
+			return json({ error: `Failed to fetch places: ${error.message}` }, { status: 500 });
 		}
 
 		return json({
@@ -71,8 +75,8 @@ export const GET = async ({ url }) => {
 			pagination: {
 				page,
 				limit,
-				total: count || 0,
-				hasMore: offset + limit < (count || 0)
+				total: data?.length || 0,
+				hasMore: (data?.length || 0) === limit
 			}
 		});
 	} catch (error) {

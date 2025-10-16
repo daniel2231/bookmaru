@@ -3,6 +3,7 @@
 	import { supabase } from '$lib/supabase';
 	import LocationRow from '$lib/LocationRow.svelte';
 	import SearchBar from '$lib/SearchBar.svelte';
+	import TableHeader from '$lib/TableHeader.svelte';
 	import { _, locale } from 'svelte-i18n';
 	import type { UiPlace } from '$lib/types';
 	import { get as getStore } from 'svelte/store';
@@ -48,13 +49,12 @@
 	$: metaTags = getPageMeta('home');
 
 	// Search functionality
-	function searchLocations(query: string): void {
-		searchQuery = query.toLowerCase().trim();
+	function filterLocations(): void {
+		let filtered = [...allLocations];
 
-		if (!searchQuery) {
-			filteredLocations = [...allLocations];
-		} else {
-			filteredLocations = allLocations.filter((location) => {
+		// Apply search filter
+		if (searchQuery) {
+			filtered = filtered.filter((location) => {
 				const searchFields = [
 					location.name,
 					location.description,
@@ -71,11 +71,19 @@
 			});
 		}
 
-		// Reset pagination when searching
+		filteredLocations = filtered;
+
+		// Reset pagination when filtering
 		currentPage = 0;
 		displayedLocations = [];
 		hasMoreData = filteredLocations.length > 0;
 		loadMoreLocations();
+	}
+
+	// Search functionality
+	function searchLocations(query: string): void {
+		searchQuery = query.toLowerCase().trim();
+		filterLocations();
 	}
 
 	// Handle search event
@@ -104,7 +112,7 @@
 			const { data, error: supabaseError } = await supabase
 				.from('places')
 				.select(
-					'id, original_language, name_en, name_ko, description_en, description_ko, region_en, region_ko, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
+					'id, original_language, name_en, name_ko, description_en, description_ko, city_ko, city_en, district_ko, district_en, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
 				)
 				.eq('status', 'approved')
 				.order('updated_at', { ascending: false });
@@ -128,8 +136,8 @@
 	// Reprocess locations when language changes
 	$: if (rawData.length > 0) {
 		allLocations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
-		// Re-run search with current query
-		searchLocations(searchQuery);
+		// Re-run filtering with current filters
+		filterLocations();
 	}
 
 	onMount(() => {
@@ -143,7 +151,12 @@
 
 <HeroHeader />
 
-<SearchBar bind:searchQuery onSearch={handleSearchEvent} />
+<!-- Search and Filter Controls -->
+<div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center">
+	<div class="flex-1">
+		<SearchBar bind:searchQuery onSearch={handleSearchEvent} />
+	</div>
+</div>
 
 {#if loading}
 	<div class="loading flex min-h-[60vh] items-center justify-center text-brand-primary">
@@ -171,19 +184,7 @@
 	<!-- Desktop table -->
 	<div class="mt-5 mb-8 hidden md:block">
 		<table class="w-full table-fixed border-collapse">
-			<thead class="border-b-2 border-brand-primary">
-				<tr>
-					<th class="w-16 px-4 py-2 text-left text-sm font-medium"></th>
-					<th class="w-2/5 py-2 text-left text-sm font-medium text-brand-primary">{nameHeader}</th>
-					<th class="w-40 py-2 text-left text-sm font-medium text-brand-primary">{cityHeader}</th>
-					<th class="w-36 py-2 text-left text-sm font-medium text-brand-primary"
-						>{categoryHeader}</th
-					>
-					<th class="w-32 py-2 text-left text-sm font-medium text-brand-primary"
-						>{quietnessHeader}</th
-					>
-				</tr>
-			</thead>
+			<TableHeader />
 			<tbody>
 				{#each displayedLocations as location, index (location.id)}
 					<LocationRow {location} {index} />

@@ -18,15 +18,6 @@ export type PlaceInsert = Database['public']['Tables']['places']['Insert'];
 /** Update type for modifying existing places */
 export type PlaceUpdate = Database['public']['Tables']['places']['Update'];
 
-/** Database row type for the admin_users table */
-export type AdminUserRow = Database['public']['Tables']['admin_users']['Row'];
-
-/** Insert type for creating new admin users */
-export type AdminUserInsert = Database['public']['Tables']['admin_users']['Insert'];
-
-/** Update type for modifying existing admin users */
-export type AdminUserUpdate = Database['public']['Tables']['admin_users']['Update'];
-
 // ===========================
 // Enum Types
 // ===========================

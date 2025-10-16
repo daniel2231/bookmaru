@@ -8,33 +8,16 @@ export type Database = {
 	};
 	public: {
 		Tables: {
-			admin_users: {
-				Row: {
-					created_at: string | null;
-					email: string;
-					id: string;
-					user_id: string | null;
-				};
-				Insert: {
-					created_at?: string | null;
-					email: string;
-					id?: string;
-					user_id?: string | null;
-				};
-				Update: {
-					created_at?: string | null;
-					email?: string;
-					id?: string;
-					user_id?: string | null;
-				};
-				Relationships: [];
-			};
 			places: {
 				Row: {
 					category: string | null;
+					city_en: string | null;
+					city_ko: string | null;
 					created_at: string | null;
 					description_en: string | null;
 					description_ko: string | null;
+					district_en: string | null;
+					district_ko: string | null;
 					id: number;
 					latitude: number | null;
 					longitude: number | null;
@@ -53,9 +36,13 @@ export type Database = {
 				};
 				Insert: {
 					category?: string | null;
+					city_en?: string | null;
+					city_ko?: string | null;
 					created_at?: string | null;
 					description_en?: string | null;
 					description_ko?: string | null;
+					district_en?: string | null;
+					district_ko?: string | null;
 					id?: number;
 					latitude?: number | null;
 					longitude?: number | null;
@@ -74,9 +61,13 @@ export type Database = {
 				};
 				Update: {
 					category?: string | null;
+					city_en?: string | null;
+					city_ko?: string | null;
 					created_at?: string | null;
 					description_en?: string | null;
 					description_ko?: string | null;
+					district_en?: string | null;
+					district_ko?: string | null;
 					id?: number;
 					latitude?: number | null;
 					longitude?: number | null;

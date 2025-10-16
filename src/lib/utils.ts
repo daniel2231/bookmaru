@@ -17,7 +17,27 @@ export function placeRowToUiPlace(row: PlaceRow, currentLocale: string): UiPlace
 		? (row.description_ko ?? row.description_en)
 		: (row.description_en ?? row.description_ko);
 
-	const region = isKo ? (row.region_ko ?? row.region_en) : (row.region_en ?? row.region_ko);
+	// Combine city and district for display, with fallback to old region fields
+	let region: string | null = null;
+
+	// Try new city/district fields first
+	if (row.city_ko || row.city_en || row.district_ko || row.district_en) {
+		const city = isKo ? (row.city_ko ?? row.city_en) : (row.city_en ?? row.city_ko);
+		const district = isKo
+			? (row.district_ko ?? row.district_en)
+			: (row.district_en ?? row.district_ko);
+
+		if (city && district) {
+			region = `${city} ${district}`;
+		} else if (city) {
+			region = city;
+		}
+	}
+
+	// Fallback to old region fields if new fields are not available
+	if (!region) {
+		region = isKo ? (row.region_ko ?? row.region_en) : (row.region_en ?? row.region_ko);
+	}
 
 	// Parse recommended book from JSONB (now single object instead of array)
 	const recommendedBookJson = isKo

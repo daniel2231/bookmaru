@@ -223,31 +223,45 @@
 									{recommendedBooksTitle}
 								</h5>
 								{#if location.recommended_book}
-									<div
-										class="flex items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
-									>
-										<div class="flex-1">
-											<p class="font-medium text-brand-primary">
-												{location.recommended_book.title}
-											</p>
-											<p class="text-sm text-gray-600">
-												{recommendedBooksBy}
-												{location.recommended_book.author}
-											</p>
-										</div>
-										{#if location.recommended_book.link}
-											<a
-												href={location.recommended_book.link}
-												target="_blank"
-												rel="noopener noreferrer"
+									{#if location.recommended_book.link}
+										<a
+											href={location.recommended_book.link}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="flex cursor-pointer items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
+											on:click={(e) => e.stopPropagation()}
+										>
+											<div class="flex-1">
+												<p class="font-medium text-brand-primary">
+													{location.recommended_book.title}
+												</p>
+												<p class="text-sm text-gray-600">
+													{recommendedBooksBy}
+													{location.recommended_book.author}
+												</p>
+											</div>
+											<div
 												class="flex items-center gap-1 text-sm text-brand-primary transition-colors hover:text-brand-primary/80"
-												on:click={(e) => e.stopPropagation()}
 											>
 												{recommendedBooksReadMore}
 												<ExternalLink size={14} />
-											</a>
-										{/if}
-									</div>
+											</div>
+										</a>
+									{:else}
+										<div
+											class="flex items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
+										>
+											<div class="flex-1">
+												<p class="font-medium text-brand-primary">
+													{location.recommended_book.title}
+												</p>
+												<p class="text-sm text-gray-600">
+													{recommendedBooksBy}
+													{location.recommended_book.author}
+												</p>
+											</div>
+										</div>
+									{/if}
 								{:else}
 									<p class="text-sm text-brand-primary">{recommendedBooksNone}</p>
 								{/if}
@@ -293,29 +307,45 @@
 								{recommendedBooksTitle}
 							</h5>
 							{#if location.recommended_book}
-								<div
-									class="flex items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
-								>
-									<div class="flex-1">
-										<p class="font-medium text-brand-primary">{location.recommended_book.title}</p>
-										<p class="text-sm text-gray-600">
-											{recommendedBooksBy}
-											{location.recommended_book.author}
-										</p>
-									</div>
-									{#if location.recommended_book.link}
-										<a
-											href={location.recommended_book.link}
-											target="_blank"
-											rel="noopener noreferrer"
+								{#if location.recommended_book.link}
+									<a
+										href={location.recommended_book.link}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="flex cursor-pointer items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
+										on:click={(e) => e.stopPropagation()}
+									>
+										<div class="flex-1">
+											<p class="font-medium text-brand-primary">
+												{location.recommended_book.title}
+											</p>
+											<p class="text-sm text-gray-600">
+												{recommendedBooksBy}
+												{location.recommended_book.author}
+											</p>
+										</div>
+										<div
 											class="flex items-center gap-1 text-sm text-brand-primary transition-colors hover:text-brand-primary/80"
-											on:click={(e) => e.stopPropagation()}
 										>
 											{recommendedBooksReadMore}
 											<ExternalLink size={14} />
-										</a>
-									{/if}
-								</div>
+										</div>
+									</a>
+								{:else}
+									<div
+										class="flex items-start justify-between border border-gray-200 bg-white p-3 transition-all hover:border-brand-primary/50 hover:shadow-sm"
+									>
+										<div class="flex-1">
+											<p class="font-medium text-brand-primary">
+												{location.recommended_book.title}
+											</p>
+											<p class="text-sm text-gray-600">
+												{recommendedBooksBy}
+												{location.recommended_book.author}
+											</p>
+										</div>
+									</div>
+								{/if}
 							{:else}
 								<p class="text-sm text-brand-primary">{recommendedBooksNone}</p>
 							{/if}

@@ -1,0 +1,634 @@
+{
+	"대한민국_도시_행정구": {
+		"서울": {
+			"korean_name": "서울",
+			"english_name": "Seoul",
+			"행정구": [
+				{
+					"korean": "강남구",
+					"english": "Gangnam-gu"
+				},
+				{
+					"korean": "강동구",
+					"english": "Gangdong-gu"
+				},
+				{
+					"korean": "강북구",
+					"english": "Gangbuk-gu"
+				},
+				{
+					"korean": "강서구",
+					"english": "Gangseo-gu"
+				},
+				{
+					"korean": "관악구",
+					"english": "Gwanak-gu"
+				},
+				{
+					"korean": "광진구",
+					"english": "Gwangjin-gu"
+				},
+				{
+					"korean": "구로구",
+					"english": "Guro-gu"
+				},
+				{
+					"korean": "금천구",
+					"english": "Geumcheon-gu"
+				},
+				{
+					"korean": "노원구",
+					"english": "Nowon-gu"
+				},
+				{
+					"korean": "도봉구",
+					"english": "Dobong-gu"
+				},
+				{
+					"korean": "동대문구",
+					"english": "Dongdaemun-gu"
+				},
+				{
+					"korean": "동작구",
+					"english": "Dongjak-gu"
+				},
+				{
+					"korean": "마포구",
+					"english": "Mapo-gu"
+				},
+				{
+					"korean": "서대문구",
+					"english": "Seodaemun-gu"
+				},
+				{
+					"korean": "서초구",
+					"english": "Seocho-gu"
+				},
+				{
+					"korean": "성동구",
+					"english": "Seongdong-gu"
+				},
+				{
+					"korean": "성북구",
+					"english": "Seongbuk-gu"
+				},
+				{
+					"korean": "송파구",
+					"english": "Songpa-gu"
+				},
+				{
+					"korean": "양천구",
+					"english": "Yangcheon-gu"
+				},
+				{
+					"korean": "영등포구",
+					"english": "Yeongdeungpo-gu"
+				},
+				{
+					"korean": "용산구",
+					"english": "Yongsan-gu"
+				},
+				{
+					"korean": "은평구",
+					"english": "Eunpyeong-gu"
+				},
+				{
+					"korean": "종로구",
+					"english": "Jongno-gu"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				},
+				{
+					"korean": "중랑구",
+					"english": "Jungnang-gu"
+				}
+			],
+			"행정구_수": 25
+		},
+		"부산": {
+			"korean_name": "부산",
+			"english_name": "Busan",
+			"행정구": [
+				{
+					"korean": "강서구",
+					"english": "Gangseo-gu"
+				},
+				{
+					"korean": "금정구",
+					"english": "Geumjeong-gu"
+				},
+				{
+					"korean": "기장군",
+					"english": "Gijang-gun"
+				},
+				{
+					"korean": "남구",
+					"english": "Nam-gu"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "동래구",
+					"english": "Dongnae-gu"
+				},
+				{
+					"korean": "부산진구",
+					"english": "Busanjin-gu"
+				},
+				{
+					"korean": "북구",
+					"english": "Buk-gu"
+				},
+				{
+					"korean": "사상구",
+					"english": "Sasang-gu"
+				},
+				{
+					"korean": "사하구",
+					"english": "Saha-gu"
+				},
+				{
+					"korean": "서구",
+					"english": "Seo-gu"
+				},
+				{
+					"korean": "수영구",
+					"english": "Suyeong-gu"
+				},
+				{
+					"korean": "연제구",
+					"english": "Yeonje-gu"
+				},
+				{
+					"korean": "영도구",
+					"english": "Yeongdo-gu"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				},
+				{
+					"korean": "해운대구",
+					"english": "Haeundae-gu"
+				}
+			],
+			"행정구_수": 16
+		},
+		"대구": {
+			"korean_name": "대구",
+			"english_name": "Daegu",
+			"행정구": [
+				{
+					"korean": "남구",
+					"english": "Nam-gu"
+				},
+				{
+					"korean": "달서구",
+					"english": "Dalseo-gu"
+				},
+				{
+					"korean": "달성군",
+					"english": "Dalseong-gun"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "북구",
+					"english": "Buk-gu"
+				},
+				{
+					"korean": "서구",
+					"english": "Seo-gu"
+				},
+				{
+					"korean": "수성구",
+					"english": "Suseong-gu"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				}
+			],
+			"행정구_수": 8
+		},
+		"인천": {
+			"korean_name": "인천",
+			"english_name": "Incheon",
+			"행정구": [
+				{
+					"korean": "강화군",
+					"english": "Ganghwa-gun"
+				},
+				{
+					"korean": "계양구",
+					"english": "Gyeyang-gu"
+				},
+				{
+					"korean": "남동구",
+					"english": "Namdong-gu"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "미추홀구",
+					"english": "Michuhol-gu"
+				},
+				{
+					"korean": "부평구",
+					"english": "Bupyeong-gu"
+				},
+				{
+					"korean": "서구",
+					"english": "Seo-gu"
+				},
+				{
+					"korean": "연수구",
+					"english": "Yeonsu-gu"
+				},
+				{
+					"korean": "옹진군",
+					"english": "Ongjin-gun"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				}
+			],
+			"행정구_수": 10
+		},
+		"광주": {
+			"korean_name": "광주",
+			"english_name": "Gwangju",
+			"행정구": [
+				{
+					"korean": "광산구",
+					"english": "Gwangsan-gu"
+				},
+				{
+					"korean": "남구",
+					"english": "Nam-gu"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "북구",
+					"english": "Buk-gu"
+				},
+				{
+					"korean": "서구",
+					"english": "Seo-gu"
+				}
+			],
+			"행정구_수": 5
+		},
+		"대전": {
+			"korean_name": "대전",
+			"english_name": "Daejeon",
+			"행정구": [
+				{
+					"korean": "대덕구",
+					"english": "Daedeok-gu"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "서구",
+					"english": "Seo-gu"
+				},
+				{
+					"korean": "유성구",
+					"english": "Yuseong-gu"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				}
+			],
+			"행정구_수": 5
+		},
+		"울산": {
+			"korean_name": "울산",
+			"english_name": "Ulsan",
+			"행정구": [
+				{
+					"korean": "남구",
+					"english": "Nam-gu"
+				},
+				{
+					"korean": "동구",
+					"english": "Dong-gu"
+				},
+				{
+					"korean": "북구",
+					"english": "Buk-gu"
+				},
+				{
+					"korean": "울주군",
+					"english": "Ulju-gun"
+				},
+				{
+					"korean": "중구",
+					"english": "Jung-gu"
+				}
+			],
+			"행정구_수": 5
+		},
+		"세종": {
+			"korean_name": "세종",
+			"english_name": "Sejong",
+			"행정구": [
+				{
+					"korean": "세종시",
+					"english": "Sejong"
+				}
+			],
+			"행정구_수": 1,
+			"읍면동": [
+				{
+					"korean": "조치원읍",
+					"english": "Jochiwon-eup"
+				},
+				{
+					"korean": "연기면",
+					"english": "Yeongi-myeon"
+				},
+				{
+					"korean": "연동면",
+					"english": "Yeondong-myeon"
+				},
+				{
+					"korean": "부강면",
+					"english": "Bugang-myeon"
+				},
+				{
+					"korean": "금남면",
+					"english": "Geumnam-myeon"
+				},
+				{
+					"korean": "장군면",
+					"english": "Janggun-myeon"
+				},
+				{
+					"korean": "연서면",
+					"english": "Yeonseo-myeon"
+				},
+				{
+					"korean": "전의면",
+					"english": "Jeonui-myeon"
+				},
+				{
+					"korean": "전동면",
+					"english": "Jeondong-myeon"
+				},
+				{
+					"korean": "소정면",
+					"english": "Sojeong-myeon"
+				},
+				{
+					"korean": "한솔동",
+					"english": "Hansol-dong"
+				},
+				{
+					"korean": "도담동",
+					"english": "Dodam-dong"
+				},
+				{
+					"korean": "아름동",
+					"english": "Areum-dong"
+				},
+				{
+					"korean": "종촌동",
+					"english": "Jongchon-dong"
+				},
+				{
+					"korean": "고운동",
+					"english": "Goun-dong"
+				},
+				{
+					"korean": "보람동",
+					"english": "Boram-dong"
+				},
+				{
+					"korean": "대평동",
+					"english": "Daepyeong-dong"
+				},
+				{
+					"korean": "소담동",
+					"english": "Sodam-dong"
+				},
+				{
+					"korean": "반곡동",
+					"english": "Bangok-dong"
+				},
+				{
+					"korean": "새롬동",
+					"english": "Saerom-dong"
+				},
+				{
+					"korean": "다정동",
+					"english": "Dajeong-dong"
+				},
+				{
+					"korean": "어진동",
+					"english": "Eojin-dong"
+				},
+				{
+					"korean": "해밀동",
+					"english": "Haemil-dong"
+				}
+			]
+		},
+		"경기도_주요도시": {
+			"수원시": {
+				"korean_name": "수원시",
+				"english_name": "Suwon",
+				"행정구": [
+					{
+						"korean": "장안구",
+						"english": "Jangan-gu"
+					},
+					{
+						"korean": "권선구",
+						"english": "Gwonseon-gu"
+					},
+					{
+						"korean": "팔달구",
+						"english": "Paldal-gu"
+					},
+					{
+						"korean": "영통구",
+						"english": "Yeongtong-gu"
+					}
+				],
+				"행정구_수": 4
+			},
+			"성남시": {
+				"korean_name": "성남시",
+				"english_name": "Seongnam",
+				"행정구": [
+					{
+						"korean": "수정구",
+						"english": "Sujeong-gu"
+					},
+					{
+						"korean": "중원구",
+						"english": "Jungwon-gu"
+					},
+					{
+						"korean": "분당구",
+						"english": "Bundang-gu"
+					}
+				],
+				"행정구_수": 3
+			},
+			"고양시": {
+				"korean_name": "고양시",
+				"english_name": "Goyang",
+				"행정구": [
+					{
+						"korean": "덕양구",
+						"english": "Deogyang-gu"
+					},
+					{
+						"korean": "일산동구",
+						"english": "Ilsandong-gu"
+					},
+					{
+						"korean": "일산서구",
+						"english": "Ilsanseo-gu"
+					}
+				],
+				"행정구_수": 3
+			},
+			"용인시": {
+				"korean_name": "용인시",
+				"english_name": "Yongin",
+				"행정구": [
+					{
+						"korean": "처인구",
+						"english": "Cheoin-gu"
+					},
+					{
+						"korean": "기흥구",
+						"english": "Giheung-gu"
+					},
+					{
+						"korean": "수지구",
+						"english": "Suji-gu"
+					}
+				],
+				"행정구_수": 3
+			},
+			"부천시": {
+				"korean_name": "부천시",
+				"english_name": "Bucheon",
+				"행정구": [
+					{
+						"korean": "단일 행정구역",
+						"english": "Single Administrative Division"
+					}
+				],
+				"행정구_수": 0
+			},
+			"안산시": {
+				"korean_name": "안산시",
+				"english_name": "Ansan",
+				"행정구": [
+					{
+						"korean": "상록구",
+						"english": "Sangnok-gu"
+					},
+					{
+						"korean": "단원구",
+						"english": "Danwon-gu"
+					}
+				],
+				"행정구_수": 2
+			},
+			"안양시": {
+				"korean_name": "안양시",
+				"english_name": "Anyang",
+				"행정구": [
+					{
+						"korean": "만안구",
+						"english": "Manan-gu"
+					},
+					{
+						"korean": "동안구",
+						"english": "Dongan-gu"
+					}
+				],
+				"행정구_수": 2
+			},
+			"남양주시": {
+				"korean_name": "남양주시",
+				"english_name": "Namyangju",
+				"행정구": [
+					{
+						"korean": "단일 행정구역",
+						"english": "Single Administrative Division"
+					}
+				],
+				"행정구_수": 0
+			},
+			"화성시": {
+				"korean_name": "화성시",
+				"english_name": "Hwaseong",
+				"행정구": [
+					{
+						"korean": "단일 행정구역",
+						"english": "Single Administrative Division"
+					}
+				],
+				"행정구_수": 0
+			},
+			"평택시": {
+				"korean_name": "평택시",
+				"english_name": "Pyeongtaek",
+				"행정구": [
+					{
+						"korean": "단일 행정구역",
+						"english": "Single Administrative Division"
+					}
+				],
+				"행정구_수": 0
+			}
+		},
+		"제주": {
+			"제주특별자치도": {
+				"korean_name": "제주",
+				"english_name": "Jeju",
+				"행정시": [
+					{
+						"korean": "제주시",
+						"english": "Jeju"
+					},
+					{
+						"korean": "서귀포시",
+						"english": "Seogwipo"
+					}
+				],
+				"행정시_수": 2
+			}
+		}
+	},
+	"총계": {
+		"특별시": 1,
+		"광역시": 6,
+		"특별자치시": 1,
+		"특별자치도": 1,
+		"전체_특별광역시_구군_수": 79
+	}
+}

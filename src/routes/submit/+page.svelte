@@ -8,6 +8,7 @@
 	import type { PlaceInsert, Language } from '$lib/types';
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
+	import CascadingRegionDropdown from '$lib/CascadingRegionDropdown.svelte';
 	import '$lib/i18n';
 
 	// Form model adapted for `places` table
@@ -15,12 +16,17 @@
 		name: '',
 		description: '',
 		region: '',
+		district: '',
 		category: '',
 		quietness: '', // string select 1-5, converted to number on submit
 		bookTitle: '',
 		bookAuthor: '',
 		bookLink: ''
 	};
+
+	// Bilingual region data from cascading dropdown
+	let regionData: { ko: string; en: string } | null = null;
+	let districtData: { ko: string; en: string } | null = null;
 
 	let submitting = false;
 	let error: string | null = null;
@@ -90,14 +96,21 @@
 				};
 			}
 
+			// Store city and district separately with bilingual support
 			const insertPayload: PlaceInsert = {
 				original_language,
 				name_en: isKo ? null : formData.name || null,
 				name_ko: isKo ? formData.name || null : null,
 				description_en: isKo ? null : formData.description || null,
 				description_ko: isKo ? formData.description || null : null,
-				region_en: isKo ? null : formData.region || null,
-				region_ko: isKo ? formData.region || null : null,
+				// New bilingual city and district fields
+				city_ko: regionData?.ko || null,
+				city_en: regionData?.en || null,
+				district_ko: districtData?.ko || null,
+				district_en: districtData?.en || null,
+				// Keep old fields for backward compatibility (will be deprecated)
+				region_en: null,
+				region_ko: null,
 				category: formData.category || null,
 				quietness,
 				photos: imageUrls.length ? imageUrls : null,
@@ -126,6 +139,7 @@
 			name: '',
 			description: '',
 			region: '',
+			district: '',
 			category: '',
 			quietness: '',
 			bookTitle: '',
@@ -282,18 +296,16 @@
 			</div>
 
 			<div class="mb-5">
-				<label for="region" class="mb-1.5 block font-medium text-brand-primary"
-					>{$_('form.fields.region')}</label
-				>
-				<input
-					id="region"
-					type="text"
-					bind:value={formData.region}
-					placeholder={$_('form.fields.regionPlaceholder')}
-					class="w-full rounded-none border border-gray-300 px-2.5 py-2.5 text-sm transition-colors focus:border-brand-primary focus:outline-none"
+				<CascadingRegionDropdown
+					bind:selectedRegion={formData.region}
+					bind:selectedDistrict={formData.district}
+					on:regionChange={(e) => {
+						formData.region = e.detail.region;
+						formData.district = e.detail.district;
+						regionData = e.detail.regionData;
+						districtData = e.detail.districtData;
+					}}
 				/>
-				<small class="mt-1 block text-sm text-brand-secondary">{$_('form.fields.regionHint')}</small
-				>
 			</div>
 
 			<div class="mb-5">
