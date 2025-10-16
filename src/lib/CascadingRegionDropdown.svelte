@@ -193,43 +193,46 @@
 </script>
 
 <div class="space-y-4">
-	<!-- 시/도 선택 -->
-	<div>
-		<label for="region-select" class="mb-2 block text-sm font-medium text-gray-700">
-			{@html $_('submit.region')}
-		</label>
-		<select
-			id="region-select"
-			bind:value={selectedRegion}
-			on:change={handleRegionChange}
-			class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:ring-1 focus:ring-brand-primary focus:outline-none"
-		>
-			<option value="">{@html $_('submit.select_region')}</option>
-			{#each regions as region}
-				<option value={region}>{getDisplayName(region)}</option>
-			{/each}
-		</select>
-	</div>
-
-	<!-- 하위 행정구 선택 (시/도가 선택된 경우에만 표시) -->
-	{#if selectedRegion && districts.length > 0}
-		<div>
-			<label for="district-select" class="mb-2 block text-sm font-medium text-gray-700">
-				{@html $_('submit.district')}
+	<!-- 시/도와 행정구/군을 한 줄에 배치 -->
+	<div class="flex gap-4">
+		<!-- 시/도 선택 -->
+		<div class="flex-1">
+			<label for="region-select" class="mb-2 block text-sm font-medium text-gray-700">
+				{@html $_('submit.region')}
 			</label>
 			<select
-				id="district-select"
-				bind:value={selectedDistrict}
-				on:change={handleDistrictChange}
-				class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:ring-1 focus:ring-brand-primary focus:outline-none"
+				id="region-select"
+				bind:value={selectedRegion}
+				on:change={handleRegionChange}
+				class="custom-select w-full border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:ring-1 focus:ring-brand-primary focus:outline-none"
 			>
-				<option value="">{@html $_('submit.select_district')}</option>
-				{#each districts as district}
-					<option value={district.korean}>{getDistrictDisplayName(district)}</option>
+				<option value="">{@html $_('submit.select_region')}</option>
+				{#each regions as region}
+					<option value={region}>{getDisplayName(region)}</option>
 				{/each}
 			</select>
 		</div>
-	{/if}
+
+		<!-- 하위 행정구 선택 (시/도가 선택된 경우에만 표시) -->
+		{#if selectedRegion && districts.length > 0}
+			<div class="flex-1">
+				<label for="district-select" class="mb-2 block text-sm font-medium text-gray-700">
+					{@html $_('submit.district')}
+				</label>
+				<select
+					id="district-select"
+					bind:value={selectedDistrict}
+					on:change={handleDistrictChange}
+					class="custom-select w-full border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:ring-1 focus:ring-brand-primary focus:outline-none"
+				>
+					<option value="">{@html $_('submit.select_district')}</option>
+					{#each districts as district}
+						<option value={district.korean}>{getDistrictDisplayName(district)}</option>
+					{/each}
+				</select>
+			</div>
+		{/if}
+	</div>
 
 	<!-- 선택된 전체 지역명 표시 -->
 	{#if fullRegionName}
@@ -239,3 +242,14 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.custom-select {
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+		background-position: right 0.75rem center;
+		background-repeat: no-repeat;
+		background-size: 1.5em 1.5em;
+		padding-right: 2.5rem;
+	}
+</style>
