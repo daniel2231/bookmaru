@@ -5,14 +5,12 @@ interface TranslationRequest {
 	original_language: string;
 	name: string;
 	description: string;
-	region: string;
 	recommended_book: any;
 }
 
 interface TranslationResponse {
 	name: string;
 	description: string;
-	region: string;
 	recommended_book: any;
 }
 
@@ -28,20 +26,34 @@ async function translateText(
 	toLang: string,
 	isLocationName: boolean = false
 ): Promise<string> {
-	let systemPrompt = `You are a professional translator. Translate the following text from ${fromLang} to ${toLang}. Return only the translation, no explanations or additional text.`;
-
-	if (isLocationName && fromLang === 'Korean' && toLang === 'English') {
-		systemPrompt = `You are a professional translator specializing in Korean place names. When translating Korean location names to English, follow this specific format:
+  let systemPrompt = `You are a professional translator. Translate the following text from ${fromLang} to ${toLang}. Return only the translation, no explanations or additional text.`;
+  if (isLocationName) {
+    if (fromLang === 'Korean' && toLang === 'English') {
+      systemPrompt = `You are a professional translator specializing in Korean place names. When translating Korean location names to English, follow this specific format:
 - Use romanized Korean names with hyphens for compound words
 - Keep the original Korean structure but make it readable in English
 - Examples: 
-  * 종달리 책약방 → Jongdal-ri chaekyakbang
-  * 서울 도서관 → Seoul Public Library  
-  * 교보문고 광화문점 → Kyobo Book Center
-- For generic terms like "도서관" (library), "책방" (bookstore), translate to English
+  * 종달리 책약방 → Jongdal-ri Chaekyakbang
+  * 서울 도서관 → Seoul Library
+  * 교보문고 광화문점 → Kyobo Book Center Gwanghwamun
+  * 다독다독 북카페 → Dadokdadok Book Cafe
+- For generic terms like "도서관" (library), "책방" (bookstore), "북카페" (book cafe), translate to English
 - For specific place names, use romanization with hyphens
 - Return only the translation, no explanations.`;
-	}
+    } else if (fromLang === 'English' && toLang === 'Korean') {
+      systemPrompt = `You are a professional translator specializing in location names. When translating English location names to Korean, follow this specific format:
+- For English names, transcribe phonetically using Korean characters (외래어 표기법)
+- Keep generic terms translated naturally in Korean
+- Examples:
+  * Checkngrow → 채그로
+  * Starfield Library → 스타필드 도서관
+  * Blue Square → 블루스퀘어
+  * Coffee & Library → 커피앤도서관
+- If it's a descriptive English name (like "Seoul Public Library"), translate meaningfully to Korean
+- For brand names or unique names, use phonetic Korean transcription
+- Return only the translation, no explanations.`;
+    }
+  }
 
 	const response = await fetch('https://api.openai.com/v1/chat/completions', {
 		method: 'POST',
@@ -108,7 +120,6 @@ Deno.serve(async (req: Request) => {
 			original_language,
 			name,
 			description,
-			region,
 			recommended_book
 		}: TranslationRequest = await req.json();
 
@@ -134,12 +145,6 @@ Deno.serve(async (req: Request) => {
 			translatedDescription = await translateText(description, fromLang, toLang);
 		}
 
-		// Translate region if provided
-		let translatedRegion = '';
-		if (region && region.trim()) {
-			translatedRegion = await translateText(region, fromLang, toLang);
-		}
-
 		// Translate recommended book if provided
 		let translatedBook = null;
 		if (recommended_book && recommended_book.title && recommended_book.author) {
@@ -149,7 +154,6 @@ Deno.serve(async (req: Request) => {
 		const result: TranslationResponse = {
 			name: translatedName,
 			description: translatedDescription,
-			region: translatedRegion,
 			recommended_book: translatedBook
 		};
 
