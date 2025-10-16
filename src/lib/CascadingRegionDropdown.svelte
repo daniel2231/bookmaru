@@ -40,9 +40,24 @@
 
 		const data = koreanRegions.대한민국_도시_행정구 as any;
 
+		// 지역명 매핑 (표시명 -> 데이터 키)
+		const regionMapping: { [key: string]: string } = {
+			서울특별시: '서울',
+			부산광역시: '부산',
+			대구광역시: '대구',
+			인천광역시: '인천',
+			광주광역시: '광주',
+			대전광역시: '대전',
+			울산광역시: '울산',
+			세종특별자치시: '세종',
+			제주특별자치도: '제주' // 제주는 data.제주.제주특별자치도에 있음
+		};
+
+		const dataKey = regionMapping[region] || region;
+
 		// 특별시, 광역시, 특별자치시
-		if (data[region] && data[region].행정구) {
-			return data[region].행정구 || [];
+		if (data[dataKey] && data[dataKey].행정구) {
+			return data[dataKey].행정구 || [];
 		}
 
 		// 경기도 주요도시
@@ -66,9 +81,24 @@
 	function getEnglishName(koreanName: string): string {
 		const data = koreanRegions.대한민국_도시_행정구 as any;
 
+		// 지역명 매핑 (표시명 -> 데이터 키)
+		const regionMapping: { [key: string]: string } = {
+			서울특별시: '서울',
+			부산광역시: '부산',
+			대구광역시: '대구',
+			인천광역시: '인천',
+			광주광역시: '광주',
+			대전광역시: '대전',
+			울산광역시: '울산',
+			세종특별자치시: '세종',
+			제주특별자치도: '제주' // 제주는 data.제주.제주특별자치도에 있음
+		};
+
+		const dataKey = regionMapping[koreanName] || koreanName;
+
 		// Check special cities and metropolitan cities
-		if (data[koreanName] && data[koreanName].english_name) {
-			return data[koreanName].english_name.trim();
+		if (data[dataKey] && data[dataKey].english_name) {
+			return data[dataKey].english_name.trim();
 		}
 
 		// Check Gyeonggi major cities
