@@ -1,22 +1,63 @@
-# sv
+# bookmaru 📚
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A bilingual platform for discovering beautiful places to read books in Korea. Built with SvelteKit, Supabase, and OpenAI.
 
-## Creating a project
+## About
 
-If you're seeing this, you've probably already done this step. Congrats!
+bookmaru (a combination of "book" and "maru", which means "living room" in Korean) is inspired by [Places to read](https://placestoread.com/) by Mitul Shah. It features a moderated submission system with automatic translation between Korean and English.
+
+### Key Features
+
+- 🌍 **Bilingual Support**: Full Korean and English interface
+- 📝 **Moderated Submissions**: Admin approval system for quality control
+- 🤖 **Auto Translation**: OpenAI-powered translation between languages
+- 📱 **Responsive Design**: Works on all devices
+- 🏷️ **Categorization**: Filter by region, category, and quietness level
+
+## Tech Stack
+
+- **Frontend**: SvelteKit
+- **Backend**: Supabase (Database, Storage, Edge Functions)
+- **AI**: OpenAI GPT-3.5 for translation
+- **Hosting**: Netlify
+- **Development**: Cursor AI
+
+## Development Story
+
+Learn more about how this project was built in 3 days using AI-assisted development:
+
+### English
+
+📖 [How I made bookmaru using SvelteKit in 3 days](https://www.danielkang.top/blog/posts/how-i-made-bookmaru)
+
+### 한국어
+
+📖 [SvelteKit으로 3일 만에 bookmaru 만들기](https://www.danielkang.top/blog/posts/how-i-made-bookmaru)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or pnpm
+- Supabase account
+
+### Installation
 
 ```sh
-# create a new project in the current directory
-npx sv create
+# Clone the repository
+git clone https://github.com/your-username/bookmaru.git
+cd bookmaru
 
-# create a new project in my-app
-npx sv create my-app
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Add your Supabase and OpenAI API keys
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Development
 
 ```sh
 npm run dev
@@ -25,9 +66,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+### Building
 
 ```sh
 npm run build
@@ -35,4 +74,10 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Live Demo
+
+🌐 [bookmaru.site](https://bookmaru.site)
+
+## License
+
+MIT License - see LICENSE file for details.
