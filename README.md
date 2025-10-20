@@ -69,10 +69,10 @@ PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 # Admin Configuration
 PRIVATE_ADMIN_PASSWORD=your_admin_password_here
 
-# NTFY Configuration (Optional)
+# NTFY Configuration
 # Topic for ntfy.sh notifications when new entries are submitted
 # Default: Bookmaru-entry
-VITE_NTFY_TOPIC=Bookmaru-entry
+PRIVATE_VITE_NTFY_TOPIC=Bookmaru-entry
 ````
 
 ### Development

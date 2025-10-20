@@ -1,6 +1,7 @@
 /**
  * Utility functions for sending notifications via ntfy.sh
  */
+import { PRIVATE_VITE_NTFY_TOPIC } from '$env/static/private';
 
 export interface NtfyNotification {
 	title: string;
@@ -66,7 +67,7 @@ export async function sendNewEntryNotification(locationData: {
 	original_language?: string | null;
 }): Promise<boolean> {
 	// Use environment variable or fallback to default
-	const topic = import.meta.env.VITE_NTFY_TOPIC || 'Bookmaru-entry';
+	const topic = PRIVATE_VITE_NTFY_TOPIC
 
 	// Determine the display name and location
 	const name =
