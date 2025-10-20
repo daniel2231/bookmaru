@@ -41,7 +41,7 @@
 	// Make translations reactive
 	$: currentLocale = $locale || 'en';
 	$: nameHeader = $_('table.header.name');
-	$: cityHeader = $_('table.header.city');
+	$: locationHeader = $_('table.header.location');
 	$: categoryHeader = $_('table.header.category');
 	$: quietnessHeader = $_('table.header.quietness');
 
@@ -112,7 +112,7 @@
 			const { data, error: supabaseError } = await supabase
 				.from('places')
 				.select(
-					'id, original_language, name_en, name_ko, description_en, description_ko, city_ko, city_en, district_ko, district_en, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, translation_reviewed, created_at, updated_at'
+					'id, original_language, name_en, name_ko, description_en, description_ko, city_ko, city_en, district_ko, district_en, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, created_at, updated_at'
 				)
 				.eq('status', 'approved')
 				.order('updated_at', { ascending: false });

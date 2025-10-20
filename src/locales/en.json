@@ -135,7 +135,7 @@
 	"table": {
 		"header": {
 			"name": "Name",
-			"city": "City",
+			"location": "Location",
 			"category": "Category",
 			"quietness": "Quietness"
 		}

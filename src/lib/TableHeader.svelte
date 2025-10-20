@@ -3,7 +3,7 @@
 
 	// Make translations reactive
 	$: nameHeader = $_('table.header.name');
-	$: cityHeader = $_('table.header.city');
+	$: locationHeader = $_('table.header.location');
 	$: categoryHeader = $_('table.header.category');
 	$: quietnessHeader = $_('table.header.quietness');
 </script>
@@ -17,9 +17,9 @@
 			{nameHeader}
 		</th>
 
-		<!-- City Column -->
-		<th class="w-40 py-2 text-left text-sm font-medium text-brand-primary">
-			{cityHeader}
+		<!-- Location Column -->
+		<th class="w-52 py-2 text-left text-sm font-medium text-brand-primary">
+			{locationHeader}
 		</th>
 
 		<!-- Category Column -->

@@ -24,8 +24,8 @@ export const GET = async ({ url }) => {
 				name_ko, 
 				description_en, 
 				description_ko, 
-				city_en, 
-				city_ko, 
+				location_en, 
+				location_ko, 
 				district_en, 
 				district_ko, 
 				category, 
@@ -36,7 +36,6 @@ export const GET = async ({ url }) => {
 				recommended_book_en, 
 				recommended_book_ko, 
 				status, 
-				translation_reviewed, 
 				created_at, 
 				updated_at
 			`
@@ -52,8 +51,8 @@ export const GET = async ({ url }) => {
 				name_ko.ilike.${searchTerm},
 				description_en.ilike.${searchTerm},
 				description_ko.ilike.${searchTerm},
-				city_en.ilike.${searchTerm},
-				city_ko.ilike.${searchTerm},
+				location_en.ilike.${searchTerm},
+				location_ko.ilike.${searchTerm},
 				district_en.ilike.${searchTerm},
 				district_ko.ilike.${searchTerm},
 				category.ilike.${searchTerm}

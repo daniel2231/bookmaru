@@ -29,7 +29,6 @@ export type Database = {
 					recommended_book_en: Json | null;
 					recommended_book_ko: Json | null;
 					status: string | null;
-					translation_reviewed: boolean | null;
 					updated_at: string | null;
 				};
 				Insert: {
@@ -52,7 +51,6 @@ export type Database = {
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
 					status?: string | null;
-					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
 				};
 				Update: {
@@ -75,7 +73,6 @@ export type Database = {
 					recommended_book_en?: Json | null;
 					recommended_book_ko?: Json | null;
 					status?: string | null;
-					translation_reviewed?: boolean | null;
 					updated_at?: string | null;
 				};
 				Relationships: [];

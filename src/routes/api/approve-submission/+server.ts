@@ -129,7 +129,6 @@ export const POST: RequestHandler = async ({ request }) => {
 					updateData.recommended_book_ko = translationData.recommended_book;
 				}
 			}
-			updateData.translation_reviewed = false; // Mark for admin review
 		}
 
 		// Update the submission with approval status and translations

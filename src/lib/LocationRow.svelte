@@ -165,7 +165,7 @@
 		<div class="block border-t border-brand-primary/20 px-4 py-2 sm:hidden">
 			<div class="grid grid-cols-2 gap-2 text-xs">
 				<div>
-					<span class="text-brand-primary/70">{$_('table.header.city')}:</span>
+					<span class="text-brand-primary/70">{$_('table.header.location')}:</span>
 					<span class="ml-1 font-medium text-brand-primary">{location.region ?? '-'}</span>
 				</div>
 				<div>
@@ -203,7 +203,7 @@
 								<img
 									src={location.photos[0]}
 									alt={location.name}
-									class="h-48 w-full object-cover"
+									class="h-54 w-full object-cover"
 								/>
 							{/if}
 						</div>

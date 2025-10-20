@@ -135,7 +135,7 @@
 	"table": {
 		"header": {
 			"name": "장소명",
-			"city": "도시",
+			"location": "위치",
 			"category": "카테고리",
 			"quietness": "조용함"
 		}
