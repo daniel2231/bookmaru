@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { sendNewEntryNotification } from '$lib/utils/notifications';
+import { sendNewEntryNotification } from '$lib/server/notifications';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -53,4 +53,3 @@ export const POST: RequestHandler = async ({ request }) => {
 		);
 	}
 };
-

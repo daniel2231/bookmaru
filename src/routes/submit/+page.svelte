@@ -9,7 +9,6 @@
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
 	import CascadingRegionDropdown from '$lib/CascadingRegionDropdown.svelte';
-	import { sendNewEntryNotification } from '$lib/utils/notifications';
 	import '$lib/i18n';
 
 	// Form model adapted for `places` table
@@ -123,9 +122,13 @@
 
 			if (supabaseError) throw supabaseError;
 
-			// Send notification to ntfy.sh
+			// Send notification via server endpoint to keep topic secret
 			try {
-				await sendNewEntryNotification(insertPayload);
+				await fetch('/api/notify', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ type: 'new_entry', payload: insertPayload })
+				});
 			} catch (notificationError) {
 				// Don't fail the form submission if notification fails
 				console.warn('Failed to send notification:', notificationError);
