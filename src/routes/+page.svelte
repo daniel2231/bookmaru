@@ -169,7 +169,7 @@
 		{#if searchQuery}
 			<h2>{$_('search.noResults')} "{searchQuery}"</h2>
 			<p>
-				Try a different search term or <button
+				<button
 					onclick={() => searchLocations('')}
 					class="text-brand-primary underline hover:text-brand-secondary"
 					>{$_('search.clearSearch')}</button

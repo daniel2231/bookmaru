@@ -9,6 +9,7 @@
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
 	import CascadingRegionDropdown from '$lib/CascadingRegionDropdown.svelte';
+	import { sendNewEntryNotification } from '$lib/utils/notifications';
 	import '$lib/i18n';
 
 	// Form model adapted for `places` table
@@ -121,6 +122,14 @@
 			const { error: supabaseError } = await (supabase as any).from('places').insert(rows);
 
 			if (supabaseError) throw supabaseError;
+
+			// Send notification to ntfy.sh
+			try {
+				await sendNewEntryNotification(insertPayload);
+			} catch (notificationError) {
+				// Don't fail the form submission if notification fails
+				console.warn('Failed to send notification:', notificationError);
+			}
 
 			// Show success message instead of redirecting
 			submitted = true;

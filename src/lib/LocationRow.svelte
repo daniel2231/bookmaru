@@ -192,7 +192,7 @@
 	<tr class="hidden border-0 md:table-row">
 		<td colspan="5" class="p-0">
 			<div
-				class="-ml-4 w-screen border-b border-brand-primary bg-brand-primary/10"
+				class=" w-screen border-b border-brand-primary bg-brand-primary/10"
 				transition:fade={{ duration: 180 }}
 			>
 				<div class="px-10 py-8" transition:slide={{ duration: 280, easing: cubicOut }}>

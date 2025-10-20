@@ -13,6 +13,7 @@ bookmaru (a combination of "book" and "maru", which means "living room" in Korea
 - 🤖 **Auto Translation**: OpenAI-powered translation between languages
 - 📱 **Responsive Design**: Works on all devices
 - 🏷️ **Categorization**: Filter by region, category, and quietness level
+- 🔔 **Real-time Notifications**: ntfy.sh integration for new entry alerts
 
 ## Tech Stack
 
@@ -44,7 +45,7 @@ Learn more about how this project was built in 3 days using AI-assisted developm
 
 ### Installation
 
-```sh
+````sh
 # Clone the repository
 git clone https://github.com/your-username/bookmaru.git
 cd bookmaru
@@ -55,7 +56,24 @@ npm install
 # Set up environment variables
 cp .env.example .env.local
 # Add your Supabase and OpenAI API keys
-```
+
+## Environment Variables
+
+Create a `.env.local` file with the following variables:
+
+```env
+# Supabase Configuration
+PUBLIC_SUPABASE_URL=your_supabase_url_here
+PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# Admin Configuration
+PRIVATE_ADMIN_PASSWORD=your_admin_password_here
+
+# NTFY Configuration (Optional)
+# Topic for ntfy.sh notifications when new entries are submitted
+# Default: Bookmaru-entry
+VITE_NTFY_TOPIC=Bookmaru-entry
+````
 
 ### Development
 

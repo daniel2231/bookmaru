@@ -156,5 +156,8 @@
 		"description": "Mitul Shah님의 <a href=\"https://www.placestoread.xyz/\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Places to Read</a> 웹사이트에서 영감을 얻은 후, 한국을 위한 비슷한 웹사이트를 만들어보고 싶어 프로젝트를 시작했습니다. 독서는 항상 제 삶의 큰 부분을 차지해왔고, 제가 좋아하는 독서 장소를 다른 사람들과 공유할 방법을 원했습니다. 오류가 있다면 언제든지 알려주세요. 여러분이 좋아하는 독서 장소를 다른 사람들과 자유롭게 공유해 주시면 감사하겠습니다!",
 		"developmentStory": "이 프로젝트의 개발 과정을 자세히 알아보기: <a href=\"https://www.danielkang.top/blog/posts/how-i-made-bookmaru\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Blog Link</a>",
 		"footerNote": "깃허브 저장소: <a href=\"https://github.com/daniel2231/bookmaru\" target=\"_blank\" class=\"text-brand-primary underline hover:text-brand-secondary\">Github</a> <br> Built with Cursor, SvelteKit and Supabase"
+	},
+	"disclaimer": {
+		"aiTranslation": "AI로 생성된 번역이므로 부정확할 수 있습니다"
 	}
 }
