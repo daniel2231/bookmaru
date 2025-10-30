@@ -9,6 +9,7 @@
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
 	import CascadingRegionDropdown from '$lib/CascadingRegionDropdown.svelte';
+	import HeroHeader from '$lib/HeroHeader.svelte';
 	import '$lib/i18n';
 
 	// Form model adapted for `places` table

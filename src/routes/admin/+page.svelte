@@ -395,7 +395,7 @@
 												{#if submission.photos && submission.photos.length > 0}
 													<img
 														src={submission.photos[0]}
-														alt="Location photo"
+														alt=""
 														class="mr-4 h-12 w-12 rounded-none object-cover"
 													/>
 												{/if}

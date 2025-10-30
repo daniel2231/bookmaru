@@ -1,5 +1,7 @@
 <script lang="ts">
 	import '../app.css';
+	// Initialize i18n as early as possible so components using $_/_ don't run before locale is set
+	import '$lib/i18n';
 	import Footer from '$lib/Footer.svelte';
 	import { isLoading } from 'svelte-i18n';
 </script>
