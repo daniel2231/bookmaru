@@ -203,7 +203,7 @@
 								<img
 									src={location.photos[0]}
 									alt={location.name}
-									class="h-54 w-full object-cover"
+									class="h-65 w-full object-cover"
 								/>
 							{/if}
 						</div>

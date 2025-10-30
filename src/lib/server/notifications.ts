@@ -1,7 +1,7 @@
 /**
  * Server-only utility functions for sending notifications via ntfy.sh
  */
-import { PRIVATE_VITE_NTFY_TOPIC } from '$env/static/private';
+import { PRIVATE_VITE_NTFY_TOPIC, PRIVATE_VITE_NTFY_TOPIC_CONTACT } from '$env/static/private';
 
 export interface NtfyNotification {
 	title: string;
@@ -86,6 +86,29 @@ export async function sendNewEntryNotification(locationData: {
 		priority: 'default',
 		tags: ['bookmaru', 'new-entry', locationData.category || 'location'],
 		icon: '📚'
+	};
+
+	return await sendNtfyNotification(topic, notification);
+}
+
+/**
+ * Sends a notification for a contact message
+ * @param contactData - { email?, message }
+ */
+export async function sendContactNotification(contactData: {
+	email?: string | null;
+	message: string;
+}): Promise<boolean> {
+	const topic = PRIVATE_VITE_NTFY_TOPIC_CONTACT;
+
+	const sender = contactData.email ? `From: ${contactData.email}\n\n` : '';
+
+	const notification: NtfyNotification = {
+		title: '📨 Contact Message',
+		message: `${sender}${contactData.message}`,
+		priority: 'default',
+		tags: ['bookmaru', 'contact'],
+		icon: '✉️'
 	};
 
 	return await sendNtfyNotification(topic, notification);
