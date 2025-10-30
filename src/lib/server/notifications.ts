@@ -26,22 +26,19 @@ export async function sendNtfyNotification(
 	try {
 		const url = `https://ntfy.sh/${topic}`;
 
-		const payload = {
-			title: notification.title,
-			message: notification.message,
-			...(notification.priority && { priority: notification.priority }),
-			...(notification.tags && { tags: notification.tags }),
-			...(notification.click && { click: notification.click }),
-			...(notification.attach && { attach: notification.attach }),
-			...(notification.icon && { icon: notification.icon })
+		const headers: Record<string, string> = {
+			'Title': notification.title
 		};
+
+		if (notification.priority) headers['Priority'] = notification.priority;
+		if (notification.tags) headers['Tags'] = notification.tags.join(',');
+		if (notification.click) headers['Click'] = notification.click;
+		if (notification.attach) headers['Attach'] = notification.attach;
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
+			headers,
+			body: notification.message
 		});
 
 		return response.ok;
@@ -80,12 +77,27 @@ export async function sendNewEntryNotification(locationData: {
 
 	const location = [city, district].filter(Boolean).join(', ');
 
+	const messageParts = [
+		`Location: ${name || 'N/A'}`
+	];
+	
+	if (location) {
+		messageParts.push(`Area: ${location}`);
+	}
+	
+	if (locationData.category) {
+		messageParts.push(`Category: ${locationData.category}`);
+	}
+	
+	if (locationData.original_language) {
+		messageParts.push(`Language: ${locationData.original_language}`);
+	}
+
 	const notification: NtfyNotification = {
-		title: '📚 New Bookmaru Entry',
-		message: `New location submitted: ${name}${location ? ` in ${location}` : ''}`,
+		title: 'New Bookmaru Entry',  // ❌ REMOVED EMOJI FROM TITLE
+		message: messageParts.join('\n'),
 		priority: 'default',
-		tags: ['bookmaru', 'new-entry', locationData.category || 'location'],
-		icon: '📚'
+		tags: ['books', 'bookmaru', 'new-entry', locationData.category || 'location']  // ✅ 'books' tag = 📚 emoji
 	};
 
 	return await sendNtfyNotification(topic, notification);
@@ -101,14 +113,18 @@ export async function sendContactNotification(contactData: {
 }): Promise<boolean> {
 	const topic = PRIVATE_VITE_NTFY_TOPIC_CONTACT;
 
-	const sender = contactData.email ? `From: ${contactData.email}\n\n` : '';
+	const messageParts = [
+		contactData.email ? `From: ${contactData.email}` : 'From: Anonymous',
+		'',
+		'Message:',
+		contactData.message
+	];
 
 	const notification: NtfyNotification = {
-		title: '📨 Contact Message',
-		message: `${sender}${contactData.message}`,
+		title: 'Contact Message',  // ❌ REMOVED EMOJI FROM TITLE
+		message: messageParts.join('\n'),
 		priority: 'default',
-		tags: ['bookmaru', 'contact'],
-		icon: '✉️'
+		tags: ['email', 'bookmaru', 'contact']  // ✅ 'email' tag = ✉️ emoji
 	};
 
 	return await sendNtfyNotification(topic, notification);
