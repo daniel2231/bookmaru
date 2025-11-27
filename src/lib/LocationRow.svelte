@@ -213,7 +213,11 @@
 							{#if location.description}
 								<div>
 									<h5 class="mb-2 font-medium text-brand-primary">{descriptionLabel}</h5>
-									<p class="text-sm leading-relaxed text-brand-primary">{location.description}</p>
+									<p
+										class="text-sm leading-relaxed break-words whitespace-pre-wrap text-brand-primary"
+									>
+										{location.description}
+									</p>
 								</div>
 							{/if}
 
@@ -296,7 +300,11 @@
 						{#if location.description}
 							<div>
 								<h5 class="mb-2 font-medium text-brand-primary">{descriptionLabel}</h5>
-								<p class="text-sm leading-relaxed text-brand-primary">{location.description}</p>
+								<p
+									class="text-sm leading-relaxed break-words whitespace-pre-wrap text-brand-primary"
+								>
+									{location.description}
+								</p>
 							</div>
 						{/if}
 
