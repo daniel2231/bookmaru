@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { supabase } from '$lib/supabase';
-	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { locale } from 'svelte-i18n';
-	import type { Database } from '$lib/database.types';
+	import type { Database, Json } from '$lib/database.types';
 	import { getPageMeta } from '$lib/meta';
 
 	type Place = Database['public']['Tables']['places']['Row'];
-	type PlaceUpdate = Database['public']['Tables']['places']['Update'];
+	type RecommendedBookForm = {
+		title: string;
+		author: string;
+		link: string;
+	};
 
 	let isAuthenticated = false;
 	let loading = true;
@@ -44,9 +46,119 @@
 		city_en: '',
 		district_ko: '',
 		district_en: '',
-		original_language: 'en'
+		original_language: 'en',
+		latitude: '',
+		longitude: '',
+		quietness: '',
+		photos: '',
+		recommended_book_en: {
+			title: '',
+			author: '',
+			link: ''
+		},
+		recommended_book_ko: {
+			title: '',
+			author: '',
+			link: ''
+		},
+		status: 'pending',
+		created_at: ''
 	};
 	let isEditing = false;
+
+	function recommendedBookToForm(value: Json | null): RecommendedBookForm {
+		if (!value) {
+			return { title: '', author: '', link: '' };
+		}
+
+		let book: Json | null = value;
+		if (typeof value === 'string') {
+			try {
+				book = JSON.parse(value) as Json;
+			} catch {
+				return { title: value, author: '', link: '' };
+			}
+		}
+
+		if (!book || typeof book !== 'object' || Array.isArray(book)) {
+			return { title: '', author: '', link: '' };
+		}
+
+		return {
+			title: typeof book.title === 'string' ? book.title : '',
+			author: typeof book.author === 'string' ? book.author : '',
+			link: typeof book.link === 'string' ? book.link : ''
+		};
+	}
+
+	function recommendedBookFromForm(book: RecommendedBookForm): Json | null {
+		const title = book.title.trim();
+		const author = book.author.trim();
+		const link = book.link.trim();
+
+		if (!title && !author && !link) {
+			return null;
+		}
+
+		return {
+			title,
+			author,
+			...(link ? { link } : {})
+		};
+	}
+
+	function photosToText(photos: string[] | null): string {
+		return photos?.join('\n') ?? '';
+	}
+
+	function photosFromText(value: string): string[] | null {
+		const photos = value
+			.split('\n')
+			.map((photo) => photo.trim())
+			.filter(Boolean);
+
+		return photos.length ? photos : null;
+	}
+
+	function numberFromForm(value: string): number | null {
+		if (!value.trim()) {
+			return null;
+		}
+
+		const number = Number(value);
+		return Number.isFinite(number) ? number : null;
+	}
+
+	function emptyEditForm() {
+		return {
+			name_en: '',
+			name_ko: '',
+			description_en: '',
+			description_ko: '',
+			category: '',
+			city_ko: '',
+			city_en: '',
+			district_ko: '',
+			district_en: '',
+			original_language: 'en',
+			latitude: '',
+			longitude: '',
+			quietness: '',
+			photos: '',
+			recommended_book_en: {
+				title: '',
+				author: '',
+				link: ''
+			},
+			recommended_book_ko: {
+				title: '',
+				author: '',
+				link: ''
+			},
+			status: 'pending',
+			created_at: ''
+		};
+	}
 
 	onMount(async () => {
 		await checkAuth();
@@ -211,7 +323,15 @@
 			city_en: submission.city_en || '',
 			district_ko: submission.district_ko || '',
 			district_en: submission.district_en || '',
-			original_language: submission.original_language || 'en'
+			original_language: submission.original_language || 'en',
+			latitude: submission.latitude?.toString() || '',
+			longitude: submission.longitude?.toString() || '',
+			quietness: submission.quietness?.toString() || '',
+			photos: photosToText(submission.photos),
+			recommended_book_en: recommendedBookToForm(submission.recommended_book_en),
+			recommended_book_ko: recommendedBookToForm(submission.recommended_book_ko),
+			status: submission.status || 'pending',
+			created_at: submission.created_at || ''
 		};
 		isEditing = true;
 	}
@@ -219,18 +339,7 @@
 	function cancelEdit() {
 		editingSubmission = null;
 		isEditing = false;
-		editForm = {
-			name_en: '',
-			name_ko: '',
-			description_en: '',
-			description_ko: '',
-			category: '',
-			city_ko: '',
-			city_en: '',
-			district_ko: '',
-			district_en: '',
-			original_language: 'en'
-		};
+		editForm = emptyEditForm();
 	}
 
 	async function saveEdit() {
@@ -256,7 +365,15 @@
 					city_en: editForm.city_en,
 					district_ko: editForm.district_ko,
 					district_en: editForm.district_en,
-					original_language: editForm.original_language
+					original_language: editForm.original_language,
+					latitude: numberFromForm(editForm.latitude),
+					longitude: numberFromForm(editForm.longitude),
+					quietness: numberFromForm(editForm.quietness),
+					photos: photosFromText(editForm.photos),
+					recommended_book_en: recommendedBookFromForm(editForm.recommended_book_en),
+					recommended_book_ko: recommendedBookFromForm(editForm.recommended_book_ko),
+					status: editForm.status,
+					created_at: editForm.created_at || null
 				})
 			});
 
@@ -563,6 +680,24 @@
 							</select>
 						</div>
 
+						<!-- Status -->
+						<div>
+							<label for="status" class="mb-1 block text-sm font-medium text-brand-primary">
+								Status
+							</label>
+							<select
+								id="status"
+								bind:value={editForm.status}
+								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+							>
+								<option value="pending">Pending</option>
+								<option value="approved">Approved</option>
+								<option value="rejected">Rejected</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 						<!-- Original Language -->
 						<div>
 							<label
@@ -579,6 +714,20 @@
 								<option value="en">English</option>
 								<option value="ko">Korean</option>
 							</select>
+						</div>
+
+						<!-- Created At -->
+						<div>
+							<label for="created_at" class="mb-1 block text-sm font-medium text-brand-primary">
+								Created At
+							</label>
+							<input
+								id="created_at"
+								type="text"
+								bind:value={editForm.created_at}
+								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+								placeholder="ISO timestamp"
+							/>
 						</div>
 					</div>
 
@@ -645,9 +794,123 @@
 						</div>
 					</div>
 
-					<!-- Legacy Region Fields (for backward compatibility) -->
 					<div class="space-y-4">
-						<h4 class="text-lg font-medium text-brand-primary">Legacy Region Fields</h4>
+						<h4 class="text-lg font-medium text-brand-primary">Location Details</h4>
+
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+							<div>
+								<label for="latitude" class="mb-1 block text-sm font-medium text-brand-primary">
+									Latitude
+								</label>
+								<input
+									id="latitude"
+									type="number"
+									step="any"
+									bind:value={editForm.latitude}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="37.5665"
+								/>
+							</div>
+
+							<div>
+								<label for="longitude" class="mb-1 block text-sm font-medium text-brand-primary">
+									Longitude
+								</label>
+								<input
+									id="longitude"
+									type="number"
+									step="any"
+									bind:value={editForm.longitude}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="126.9780"
+								/>
+							</div>
+
+							<div>
+								<label for="quietness" class="mb-1 block text-sm font-medium text-brand-primary">
+									Quietness
+								</label>
+								<input
+									id="quietness"
+									type="number"
+									min="1"
+									max="5"
+									step="1"
+									bind:value={editForm.quietness}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="1-5"
+								/>
+							</div>
+						</div>
+
+						<div>
+							<label for="photos" class="mb-1 block text-sm font-medium text-brand-primary">
+								Photos
+							</label>
+							<textarea
+								id="photos"
+								bind:value={editForm.photos}
+								rows="4"
+								class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+								placeholder="One image URL per line"
+							></textarea>
+						</div>
+					</div>
+
+					<div class="space-y-4">
+						<h4 class="text-lg font-medium text-brand-primary">Recommended Book</h4>
+
+						<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+							<div class="space-y-3">
+								<h5 class="text-sm font-semibold text-brand-primary">English</h5>
+								<input
+									type="text"
+									bind:value={editForm.recommended_book_en.title}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Title"
+									aria-label="Recommended book English title"
+								/>
+								<input
+									type="text"
+									bind:value={editForm.recommended_book_en.author}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Author"
+									aria-label="Recommended book English author"
+								/>
+								<input
+									type="url"
+									bind:value={editForm.recommended_book_en.link}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Link"
+									aria-label="Recommended book English link"
+								/>
+							</div>
+
+							<div class="space-y-3">
+								<h5 class="text-sm font-semibold text-brand-primary">Korean</h5>
+								<input
+									type="text"
+									bind:value={editForm.recommended_book_ko.title}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Title"
+									aria-label="Recommended book Korean title"
+								/>
+								<input
+									type="text"
+									bind:value={editForm.recommended_book_ko.author}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Author"
+									aria-label="Recommended book Korean author"
+								/>
+								<input
+									type="url"
+									bind:value={editForm.recommended_book_ko.link}
+									class="w-full rounded-none border border-gray-300 px-3 py-2 focus:border-brand-primary focus:outline-none"
+									placeholder="Link"
+									aria-label="Recommended book Korean link"
+								/>
+							</div>
+						</div>
 					</div>
 
 					<!-- Action Buttons -->
