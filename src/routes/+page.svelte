@@ -9,6 +9,7 @@
 	import { get as getStore } from 'svelte/store';
 	import { placeRowToUiPlace } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
+	import Seo from '$lib/Seo.svelte';
 
 	import '$lib/i18n'; // Initialize i18n
 	import HeroHeader from '$lib/HeroHeader.svelte';
@@ -145,9 +146,7 @@
 	});
 </script>
 
-<svelte:head>
-	{@html metaTags}
-</svelte:head>
+<Seo meta={metaTags} />
 
 <HeroHeader />
 

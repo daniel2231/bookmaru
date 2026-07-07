@@ -1,147 +1,141 @@
-/**
- * Meta tag utilities for BookMaru
- * Provides functions to generate consistent meta tags across the application
- */
-
 export interface MetaTags {
 	title: string;
 	description: string;
 	keywords?: string;
 	image?: string;
-	url?: string;
+	path?: string;
 	type?: 'website' | 'article';
 	author?: string;
+	robots?: string;
+	locale?: string;
+	structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const BASE_URL = 'https://bookmaru.netlify.app';
-const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
-const DEFAULT_AUTHOR = 'Daniel Kang (@danielkang)';
+export const SITE_URL = 'https://bookmaru.site';
+export const SITE_NAME = 'BookMaru';
+export const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+export const DEFAULT_AUTHOR = 'Daniel Kang (@danielkang)';
 
-/**
- * Generate meta tags for a page
- */
-export function generateMetaTags(meta: MetaTags): string {
-	const {
-		title,
-		description,
-		keywords,
-		image = DEFAULT_IMAGE,
-		url = BASE_URL,
-		type = 'website',
-		author = DEFAULT_AUTHOR
-	} = meta;
+const defaultStructuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: SITE_NAME,
+		url: SITE_URL,
+		inLanguage: ['en', 'ko'],
+		description: 'BookMaru helps readers discover and share quiet reading spots across Korea.'
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: SITE_NAME,
+		url: SITE_URL,
+		logo: DEFAULT_IMAGE,
+		sameAs: ['https://github.com/daniel2231/bookmaru']
+	}
+];
 
-	return `
-		<title>${title}</title>
-		<meta name="title" content="${title}" />
-		<meta name="description" content="${description}" />
-		${keywords ? `<meta name="keywords" content="${keywords}" />` : ''}
-		<meta name="author" content="${author}" />
-		<meta name="robots" content="index, follow" />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="${type}" />
-		<meta property="og:url" content="${url}" />
-		<meta property="og:title" content="${title}" />
-		<meta property="og:description" content="${description}" />
-		<meta property="og:image" content="${image}" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:site_name" content="BookMaru" />
-		<meta property="og:locale" content="en_US" />
-		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="${url}" />
-		<meta property="twitter:title" content="${title}" />
-		<meta property="twitter:description" content="${description}" />
-		<meta property="twitter:image" content="${image}" />
-		<meta property="twitter:creator" content="@danielkang" />
-		<meta property="twitter:site" content="@danielkang" />
-		
-		<!-- Canonical URL -->
-		<link rel="canonical" href="${url}" />
-	`.trim();
-}
-
-/**
- * Predefined meta tag configurations for common pages
- */
 export const metaConfigs = {
 	home: {
-		title: 'BookMaru - Find Your Perfect Reading Location',
+		title: 'BookMaru - Reading Spots in Korea',
 		description:
-			'Discover the best reading spots in Korea. Find libraries, cafes, parks, and other quiet places perfect for reading. Share your favorite reading locations with fellow book lovers.',
+			'Discover libraries, cafes, bookstores, parks, and quiet public spaces for reading across Korea. Browse community-recommended reading spots in English and Korean.',
 		keywords:
-			'reading spots, Korea, libraries, cafes, quiet places, book lovers, study spaces, reading locations, Seoul, Busan, Daegu, reading community',
-		url: BASE_URL
+			'reading spots Korea, quiet cafes Korea, Korean libraries, bookstores Korea, places to read Seoul, study cafes Korea, BookMaru',
+		path: '/',
+		structuredData: defaultStructuredData
 	},
 
 	about: {
-		title: 'About BookMaru - Find Your Perfect Reading Location',
+		title: 'About BookMaru - Reading Spots in Korea',
 		description:
-			'Learn about BookMaru, a platform for discovering and sharing great reading spots in Korea. Built by book lovers, for book lovers.',
+			'Learn about BookMaru, a bilingual community project for discovering and sharing great places to read across Korea.',
 		keywords:
-			'about bookmaru, reading community, Korea reading spots, book lovers, reading platform',
-		url: `${BASE_URL}/about`
+			'about BookMaru, Korea reading community, reading spots Korea, bilingual reading platform',
+		path: '/about',
+		structuredData: {
+			'@context': 'https://schema.org',
+			'@type': 'AboutPage',
+			name: 'About BookMaru',
+			url: `${SITE_URL}/about`,
+			isPartOf: {
+				'@type': 'WebSite',
+				name: SITE_NAME,
+				url: SITE_URL
+			}
+		}
 	},
 
 	submit: {
 		title: 'Add a Reading Spot - BookMaru',
 		description:
-			'Share your favorite reading location with the BookMaru community. Help fellow book lovers discover great places to read in Korea.',
+			'Share a library, cafe, bookstore, park, or other quiet reading location in Korea with the BookMaru community.',
 		keywords:
-			'add reading spot, share location, reading community, submit location, Korea reading spots',
-		url: `${BASE_URL}/submit`
+			'add reading spot, submit reading location, share quiet place Korea, BookMaru submission',
+		path: '/submit'
+	},
+
+	contact: {
+		title: 'Contact BookMaru',
+		description:
+			'Contact BookMaru with feedback, corrections, or questions about reading spots in Korea.',
+		keywords: 'contact BookMaru, BookMaru feedback, reading spots Korea corrections',
+		path: '/contact'
 	},
 
 	admin: {
 		title: 'Admin Panel - BookMaru',
-		description: 'Manage reading spot submissions and moderate content for the BookMaru community.',
-		keywords: 'admin panel, content moderation, reading spots management',
-		url: `${BASE_URL}/admin`
+		description: 'Manage BookMaru reading spot submissions.',
+		path: '/admin',
+		robots: 'noindex, nofollow'
 	}
-};
+} satisfies Record<string, MetaTags>;
 
-/**
- * Generate meta tags for a specific page type
- */
+export function absoluteUrl(path = '/'): string {
+	if (/^https?:\/\//.test(path)) return path;
+	const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+	return `${SITE_URL}${normalizedPath === '/' ? '' : normalizedPath}`;
+}
+
 export function getPageMeta(
 	page: keyof typeof metaConfigs,
 	customMeta?: Partial<MetaTags>
-): string {
-	const baseMeta = metaConfigs[page];
-	const finalMeta = { ...baseMeta, ...customMeta };
-	return generateMetaTags(finalMeta);
+): MetaTags {
+	return { ...metaConfigs[page], ...customMeta };
 }
 
-/**
- * Generate meta tags for a specific reading location
- */
 export function getLocationMeta(location: {
 	name: string;
 	description?: string;
 	city?: string;
 	category?: string;
 	image?: string;
-}): string {
+}): MetaTags {
 	const { name, description, city, category, image } = location;
-
 	const title = `${name} - Reading Spot in ${city || 'Korea'} | BookMaru`;
 	const metaDescription = description
-		? `${description.substring(0, 150)}${description.length > 150 ? '...' : ''} - Find this ${category || 'reading spot'} and more on BookMaru.`
+		? `${description.slice(0, 150)}${description.length > 150 ? '...' : ''} Find this ${category || 'reading spot'} and more on BookMaru.`
 		: `Discover ${name}, a great ${category || 'reading spot'} in ${city || 'Korea'}. Find more reading locations on BookMaru.`;
 
-	const keywords = [name, city, category, 'reading spot', 'Korea', 'book lovers', 'quiet place']
-		.filter(Boolean)
-		.join(', ');
-
-	return generateMetaTags({
+	return {
 		title,
 		description: metaDescription,
-		keywords,
+		keywords: [name, city, category, 'reading spot', 'Korea', 'book lovers', 'quiet place']
+			.filter(Boolean)
+			.join(', '),
 		image: image || DEFAULT_IMAGE,
-		url: `${BASE_URL}/location/${encodeURIComponent(name)}`,
-		type: 'article'
-	});
+		path: `/location/${encodeURIComponent(name)}`,
+		type: 'article',
+		structuredData: {
+			'@context': 'https://schema.org',
+			'@type': 'Place',
+			name,
+			description: metaDescription,
+			address: city
+				? { '@type': 'PostalAddress', addressLocality: city, addressCountry: 'KR' }
+				: undefined,
+			image: image || DEFAULT_IMAGE,
+			url: absoluteUrl(`/location/${encodeURIComponent(name)}`)
+		}
+	};
 }

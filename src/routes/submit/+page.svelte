@@ -8,6 +8,7 @@
 	import type { PlaceInsert, Language } from '$lib/types';
 	import { generateSimpleId, parseCommaSeparated } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
+	import Seo from '$lib/Seo.svelte';
 	import CascadingRegionDropdown from '$lib/CascadingRegionDropdown.svelte';
 	import HeroHeader from '$lib/HeroHeader.svelte';
 	import '$lib/i18n';
@@ -165,9 +166,7 @@
 	$: metaTags = getPageMeta('submit');
 </script>
 
-<svelte:head>
-	{@html metaTags}
-</svelte:head>
+<Seo meta={metaTags} />
 
 <div class="mx-auto max-w-4xl px-4 py-8">
 	{#if submitted}

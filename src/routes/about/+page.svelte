@@ -2,15 +2,14 @@
 	import { _ } from 'svelte-i18n';
 	import HeroHeader from '$lib/HeroHeader.svelte';
 	import { getPageMeta } from '$lib/meta';
+	import Seo from '$lib/Seo.svelte';
 	import '$lib/i18n';
 
 	// Generate meta tags
 	$: metaTags = getPageMeta('about');
 </script>
 
-<svelte:head>
-	{@html metaTags}
-</svelte:head>
+<Seo meta={metaTags} />
 
 <div>
 	<HeroHeader />
