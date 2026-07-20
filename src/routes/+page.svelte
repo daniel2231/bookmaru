@@ -1,20 +1,35 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { supabase } from '$lib/supabase';
 	import LocationRow from '$lib/LocationRow.svelte';
 	import SearchBar from '$lib/SearchBar.svelte';
 	import TableHeader from '$lib/TableHeader.svelte';
 	import { _, locale } from 'svelte-i18n';
 	import type { UiPlace } from '$lib/types';
-	import { get as getStore } from 'svelte/store';
 	import { placeRowToUiPlace } from '$lib/utils';
 	import { getPageMeta } from '$lib/meta';
 	import Seo from '$lib/Seo.svelte';
+	import type { PageData } from './$types';
 
 	import '$lib/i18n'; // Initialize i18n
 	import HeroHeader from '$lib/HeroHeader.svelte';
 
-	// Load saved language preference
+	export let data: PageData;
+
+	const ITEMS_PER_PAGE = 20;
+
+	// Initialize the page from server-rendered data so approved places are included in the initial HTML.
+	let rawData: any[] = data.places ?? [];
+	let allLocations: UiPlace[] = rawData.map((row) => placeRowToUiPlace(row, 'en'));
+	let filteredLocations: UiPlace[] = [...allLocations];
+	let displayedLocations: UiPlace[] = filteredLocations.slice(0, ITEMS_PER_PAGE);
+	let loading = false;
+	let loadingMore = false;
+	let error: string | null = data.loadError ?? null;
+	let searchQuery = '';
+	let currentPage = displayedLocations.length > 0 ? 1 : 0;
+	let hasMoreData = displayedLocations.length < filteredLocations.length;
+
+	// Load saved language preference after hydration. Server-rendered content defaults to English.
 	onMount(() => {
 		if (typeof window !== 'undefined') {
 			const savedLang = localStorage.getItem('language');
@@ -26,19 +41,6 @@
 		}
 	});
 
-	// State management
-	let allLocations: UiPlace[] = []; // All loaded locations
-	let filteredLocations: UiPlace[] = []; // Filtered by search
-	let displayedLocations: UiPlace[] = []; // Currently displayed (lazy loaded)
-	let loading = true;
-	let loadingMore = false;
-	let error: string | null = null;
-	let rawData: any[] = []; // Store raw data from database
-	let searchQuery = '';
-	let hasMoreData = true;
-	let currentPage = 0;
-	const ITEMS_PER_PAGE = 20;
-
 	// Make translations reactive
 	$: currentLocale = $locale || 'en';
 	$: nameHeader = $_('table.header.name');
@@ -49,11 +51,9 @@
 	// Generate meta tags
 	$: metaTags = getPageMeta('home');
 
-	// Search functionality
 	function filterLocations(): void {
 		let filtered = [...allLocations];
 
-		// Apply search filter
 		if (searchQuery) {
 			filtered = filtered.filter((location) => {
 				const searchFields = [
@@ -73,26 +73,21 @@
 		}
 
 		filteredLocations = filtered;
-
-		// Reset pagination when filtering
 		currentPage = 0;
 		displayedLocations = [];
 		hasMoreData = filteredLocations.length > 0;
 		loadMoreLocations();
 	}
 
-	// Search functionality
 	function searchLocations(query: string): void {
 		searchQuery = query.toLowerCase().trim();
 		filterLocations();
 	}
 
-	// Handle search event
 	function handleSearchEvent(query: string): void {
 		searchLocations(query);
 	}
 
-	// Load more locations for lazy loading
 	function loadMoreLocations(): void {
 		if (loadingMore || !hasMoreData) return;
 
@@ -107,43 +102,11 @@
 		loadingMore = false;
 	}
 
-	async function loadAllLocations(): Promise<void> {
-		try {
-			loading = true;
-			const { data, error: supabaseError } = await supabase
-				.from('places')
-				.select(
-					'id, original_language, name_en, name_ko, description_en, description_ko, city_ko, city_en, district_ko, district_en, category, quietness, photos, latitude, longitude, recommended_book_en, recommended_book_ko, status, created_at, updated_at'
-				)
-				.eq('status', 'approved')
-				.order('updated_at', { ascending: false });
-
-			if (supabaseError) throw supabaseError;
-
-			rawData = data ?? [];
-			// Process locations with current locale
-			allLocations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
-			filteredLocations = [...allLocations];
-			hasMoreData = allLocations.length > 0;
-			loadMoreLocations();
-		} catch (err) {
-			error = err instanceof Error ? err.message : 'An unknown error occurred';
-			console.error('Error loading locations:', err);
-		} finally {
-			loading = false;
-		}
-	}
-
-	// Reprocess locations when language changes
+	// Reprocess the server-provided rows when the selected language changes.
 	$: if (rawData.length > 0) {
 		allLocations = rawData.map((row) => placeRowToUiPlace(row, currentLocale));
-		// Re-run filtering with current filters
 		filterLocations();
 	}
-
-	onMount(() => {
-		loadAllLocations();
-	});
 </script>
 
 <Seo meta={metaTags} />
