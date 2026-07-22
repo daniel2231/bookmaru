@@ -2,7 +2,21 @@
 	import { onMount } from 'svelte';
 	import { _, locale } from 'svelte-i18n';
 	import { createEventDispatcher } from 'svelte';
+	import { cubicOut } from 'svelte/easing';
 	import koreanRegions from './data/korean-regions.json';
+
+	// Smooth dropdown open/close: fade + subtle slide/scale from the top.
+	// Uses only opacity + transform so it stays GPU-accelerated on mobile.
+	function dropdown(node: HTMLElement, { duration = 160 } = {}) {
+		return {
+			duration,
+			easing: cubicOut,
+			css: (t: number) => {
+				const eased = 1 - t;
+				return `opacity: ${t}; transform: translateY(${eased * -6}px) scale(${0.98 + t * 0.02}); transform-origin: top;`;
+			}
+		};
+	}
 
 	export let selectedRegion: string = '';
 	export let locations: any[] = [];
@@ -92,6 +106,7 @@
 		<div
 			class="absolute z-10 mt-1 max-h-80 w-full overflow-y-auto rounded-none border border-gray-300 bg-white shadow-lg"
 			role="listbox"
+			transition:dropdown
 		>
 			<!-- All Regions option -->
 			<button
