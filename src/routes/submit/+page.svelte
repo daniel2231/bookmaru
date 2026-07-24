@@ -168,11 +168,13 @@
 
 <Seo meta={metaTags} />
 
-<div class="mx-auto max-w-4xl px-4 py-8">
+<HeroHeader />
+
+<div class="mx-auto max-w-2xl px-6 pb-16 md:px-10">
 	{#if submitted}
 		<!-- Success Message -->
-		<div class="flex min-h-[60vh] items-center justify-center">
-			<div class="w-full max-w-lg rounded-none bg-white p-10 text-center shadow-lg">
+		<div class="flex min-h-[50vh] items-center justify-center">
+			<div class="w-full max-w-lg rounded-none border border-brand-primary/20 bg-white p-10 text-center">
 				<h1 class="mb-5 text-2xl font-semibold text-brand-primary">{$_('form.success.title')}</h1>
 				<p class="mb-8 text-lg leading-relaxed text-brand-secondary">
 					{$_('form.success.message')}
@@ -205,7 +207,7 @@
 
 		<form
 			on:submit|preventDefault={handleSubmit}
-			class="mx-auto max-w-2xl rounded-none bg-white p-8 shadow-sm"
+			class="mx-auto max-w-2xl rounded-none border border-brand-primary/20 bg-white p-6 md:p-8"
 		>
 			<div class="mb-5">
 				<label for="images" class="mb-1.5 block font-medium text-brand-primary"
