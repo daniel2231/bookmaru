@@ -11,7 +11,7 @@ export interface MetaTags {
 	structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-export const SITE_URL = 'https://bookmaru.site';
+export const SITE_URL = 'https://bookmaru.app';
 export const SITE_NAME = 'BookMaru';
 export const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 export const DEFAULT_AUTHOR = 'Daniel Kang (@danielkang)';

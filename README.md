@@ -94,7 +94,7 @@ You can preview the production build with `npm run preview`.
 
 ## Live Demo
 
-🌐 [bookmaru.site](https://bookmaru.site)
+🌐 [bookmaru.app](https://bookmaru.app)
 
 ## License
 
