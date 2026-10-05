@@ -4,6 +4,7 @@
 	import { locale } from 'svelte-i18n';
 	import type { Database, Json } from '$lib/database.types';
 	import { getPageMeta } from '$lib/meta';
+	import Seo from '$lib/Seo.svelte';
 
 	type Place = Database['public']['Tables']['places']['Row'];
 	type RecommendedBookForm = {
@@ -395,9 +396,7 @@
 	}
 </script>
 
-<svelte:head>
-	{@html metaTags}
-</svelte:head>
+<Seo meta={metaTags} />
 
 <div class="min-h-screen bg-background">
 	<div class="mx-auto max-w-7xl px-4 py-8">

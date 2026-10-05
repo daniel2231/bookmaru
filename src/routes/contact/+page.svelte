@@ -3,12 +3,15 @@
 	import { _ } from 'svelte-i18n';
 	import HeroHeader from '$lib/HeroHeader.svelte';
 	import { goto } from '$app/navigation';
+	import { getPageMeta } from '$lib/meta';
+	import Seo from '$lib/Seo.svelte';
 
 	let email: string = '';
 	let message: string = '';
 	let sending = false;
 	let success: string | null = null;
 	let error: string | null = null;
+	$: metaTags = getPageMeta('contact');
 
 	async function send() {
 		error = null;
@@ -45,9 +48,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{$_('contact.title') || 'Contact'}</title>
-</svelte:head>
+<Seo meta={metaTags} />
 
 <HeroHeader />
 
@@ -88,10 +89,10 @@
 		</textarea>
 	</div>
 
-	<div class="flex items-center gap-3 ">
+	<div class="flex items-center gap-3">
 		<button
 			on:click|preventDefault={send}
-			class=" bg-brand-primary px-4 py-2 text-white hover:opacity-95 disabled:opacity-60 hover:cursor-pointer"
+			class=" bg-brand-primary px-4 py-2 text-white hover:cursor-pointer hover:opacity-95 disabled:opacity-60"
 			disabled={sending}
 		>
 			{sending ? $_('contact.sending') : $_('contact.send')}
@@ -101,7 +102,3 @@
 		</button>
 	</div>
 </main>
-
-<style>
-	/* small local adjustments if needed */
-</style>
