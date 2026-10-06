@@ -5,6 +5,7 @@
 	import type { UiPlace } from './types';
 	import { fade, slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import { onMount } from 'svelte';
 
 	export let location: UiPlace;
 	export let index: number;
@@ -21,6 +22,22 @@
 	$: recommendedBooksNone = $_('location.recommendedBooks.none');
 	$: quietnessLabel = $_('table.header.quietness');
 
+	// Start downloading the photo before the row is expanded so it is already cached on click
+	let preloaded = false;
+	function preloadPhoto() {
+		const src = location.photos?.[0];
+		if (preloaded || !src || typeof Image === 'undefined') return;
+		preloaded = true;
+		const img = new Image();
+		img.decoding = 'async';
+		img.src = src;
+	}
+
+	onMount(() => {
+		const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 200));
+		idle(preloadPhoto);
+	});
+
 	function toggleExpanded() {
 		isExpanded = !isExpanded;
 	}
@@ -33,6 +50,7 @@
 		: ''}"
 	class:border-b={!isExpanded}
 	on:click={toggleExpanded}
+	on:pointerenter={preloadPhoto}
 >
 	<!-- Index/ID Column -->
 	<td class="px-10 py-2 text-left">
@@ -98,6 +116,7 @@
 			: 'bg-white'} {index === 0 ? 'border-t border-brand-primary' : ''}"
 		role="button"
 		tabindex="0"
+		on:pointerdown={preloadPhoto}
 		on:click={toggleExpanded}
 		on:keydown={(e) => {
 			if (e.key === 'Enter' || e.key === ' ') {
@@ -203,7 +222,8 @@
 								<img
 									src={location.photos[0]}
 									alt={location.name}
-									class="h-65 w-full object-cover"
+									class="h-65 w-full bg-brand-primary/10 object-cover"
+									decoding="async"
 								/>
 							{/if}
 						</div>
@@ -291,7 +311,8 @@
 								<img
 									src={location.photos[0]}
 									alt={location.name}
-									class="h-48 w-full object-cover"
+									class="h-48 w-full bg-brand-primary/10 object-cover"
+									decoding="async"
 								/>
 							{/if}
 						</div>
