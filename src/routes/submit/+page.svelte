@@ -416,6 +416,18 @@
 							<input
 								type="radio"
 								name="category"
+								value="cultural_space"
+								bind:group={formData.category}
+								class="h-4 w-4 appearance-none border-2 border-slate-300 bg-white checked:border-green-500 checked:bg-green-500 checked:ring-2 checked:ring-green-200"
+							/>
+							<span>{$_('categories.cultural_space')}</span>
+						</label>
+						<label
+							class="flex h-12 cursor-pointer items-center justify-center gap-1.5 border border-slate-300 px-1 py-2 text-center text-xs leading-tight transition-all duration-200 select-none has-[:checked]:border-green-500 has-[:checked]:bg-green-50 has-[:checked]:font-semibold has-[:checked]:text-green-800"
+						>
+							<input
+								type="radio"
+								name="category"
 								value="other"
 								bind:group={formData.category}
 								class="h-4 w-4 appearance-none border-2 border-slate-300 bg-white checked:border-green-500 checked:bg-green-500 checked:ring-2 checked:ring-green-200"

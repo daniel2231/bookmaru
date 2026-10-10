@@ -675,6 +675,7 @@
 								<option value="public_space">Public space</option>
 								<option value="university">University</option>
 								<option value="community_center">Community center</option>
+								<option value="cultural_space">Cultural space</option>
 								<option value="other">Other</option>
 							</select>
 						</div>

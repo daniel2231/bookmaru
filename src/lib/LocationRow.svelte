@@ -14,7 +14,9 @@
 
 	// Make translations reactive
 	$: currentLocale = $locale;
-	$: categoryText = location.category ? $_(`categories.${location.category.toLowerCase()}`) : '-';
+	$: categoryText = location.category
+		? $_(`categories.${location.category.toLowerCase()}`, { default: $_('categories.other') })
+		: '-';
 	$: descriptionLabel = $_('location.description');
 	$: recommendedBooksTitle = $_('location.recommendedBooks.title');
 	$: recommendedBooksBy = $_('location.recommendedBooks.by');
